@@ -29,6 +29,10 @@ namespace sf {
 		int getWindowHeight();
 		
 		void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far);
+		
+		
+		// draw box
+		void box(float sizeX, float sizeY, float sizeZ);
 	};
 }
 

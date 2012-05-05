@@ -9,7 +9,7 @@
 #include "SFRenderer.h"
 #include <iostream.h>
 #include <sstream>
-
+#include <GLUT/GLUT.h>
 
 using namespace sf;
 
@@ -22,6 +22,23 @@ int SFRenderer::flush()
 	
 	image->flush(bufferStream);
 	
+	CameraBlock* camera = getCameraPtr();
+	camera->flush(bufferStream);
+	
+	// flush box scheme
+	BoxScheme boxScheme;
+	boxScheme.flush(bufferStream);
+	
+	string ss;
+	
+	// flush objects
+	ss = "mesh";
+	for (int i = 0; i < blocks.size(); i++) {
+		if (blocks[i]->type == ss) {
+			blocks[i]->flush(bufferStream);
+		}
+	}
+	
 	
 //	if (camera > 0) camera->flush(fstream);
 //	if (gi > 0) gi->flush(fstream);
@@ -32,67 +49,33 @@ int SFRenderer::flush()
 	bufferStream.dump();
 #endif
 	bufferStream.save();
-	
+	cout << "test" << endl;
 	return 0;
-}
-
-
-/* get pointer
- ===============*/
-BaseBlock* SFRenderer::getPtr(string name)
-{
-	for (int i = 0; i < blocks.size(); i++)
-	{
-		if (blocks[i]->name == name) return blocks[i];
-	}
-	return 0;
-}
-
-ImageBlock* SFRenderer::getImagePtr() {
-	return dynamic_cast<ImageBlock*>(getPtr("image"));
-}
-
-
-
-string SFRenderer::filePath() {
-	return bufferStream.getPath();
-}
-
-
-void SFRenderer::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far) {
-	
-	//renderer.setCamera(new PinholeCamera(eye, target, up, fov, aspect));
 }
 
 void SFRenderer::clear()
 {
 	vector<BaseBlock*> _blocks;
-	ostringstream ss;
+	string ss;
 	
 	for (int i = 0; i < blocks.size(); i++)
 	{
-		ss.clear();
-		ss << "mesh";
-		
-		if (blocks[i]->type == ss.str()) {
+		ss = "mesh";
+		if (blocks[i]->type == ss) {
 			delete blocks[i];
-			return;
+			continue;
 		}
 		
-		ss.clear();
-		ss << "light";
-		
-		if (blocks[i]->type == ss.str()) {
+		ss = "light";
+		if (blocks[i]->type == ss) {
 			delete blocks[i];
-			return;
+			continue;
 		}
 		
-		ss.clear();
-		ss << "shader";
-		
-		if (blocks[i]->type == ss.str()) {
+		ss = "shader";
+		if (blocks[i]->type == ss) {
 			delete blocks[i];
-			return;
+			continue;
 		}
 		
 		_blocks.push_back(blocks[i]);
@@ -112,3 +95,58 @@ void SFRenderer::render() {
 	
 	flush();
 }
+
+
+/* get pointer
+ ===============*/
+BaseBlock* SFRenderer::getPtr(string name)
+{
+	for (int i = 0; i < blocks.size(); i++) {
+		
+		if (blocks[i]->name == name) {
+			return blocks[i];
+		}
+	}
+	return 0;
+}
+
+ImageBlock* SFRenderer::getImagePtr() {
+	return dynamic_cast<ImageBlock*>(getPtr("image"));
+}
+
+CameraBlock* SFRenderer::getCameraPtr() {
+	return dynamic_cast<CameraBlock*>(getPtr("camera"));
+}
+
+
+
+string SFRenderer::filePath() {
+	return bufferStream.getPath();
+}
+
+
+void SFRenderer::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far) {
+	
+	blocks.push_back(new PinholeCameraBlock(eye, target, up, fov, aspect));
+}
+
+void SFRenderer::box() {
+	
+	matrix4x4 m;
+	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
+	
+	// name value have to be unique if using instance
+	stringstream ss;
+	ss << "Box" << (blocks.size() + 1);
+	
+	Box* box = new Box();
+	box->name = ss.str();
+	box->m = m;
+	
+	if (currShader) {
+		box->shader = currShader->name;
+	}
+	
+	blocks.push_back(box);
+}
+

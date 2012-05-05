@@ -3,6 +3,7 @@
 #include <GLUT/GLUT.h>
 #include <iostream.h>
 
+bool doRender = false;
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -21,16 +22,21 @@ void testApp::draw(){
 	glEnable(GL_DEPTH_TEST);
 	
 	glPushMatrix();
-	
-	glutSolidCube(1);
-	
+	sf::box(1);
 	glPopMatrix();
-	glutSwapBuffers();
+	
+	if (doRender) {
+		sf::quickRender();
+		doRender = false;
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-	sf::quickRender();
+	
+	if (key == 'r') {
+		doRender = true;
+	}
 }
 
 //--------------------------------------------------------------

@@ -29,3 +29,12 @@ void GLRenderer::setupScreenPerspective(const vec3f eye, const vec3f target, con
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
+
+void GLRenderer::box(float sizeX, float sizeY, float sizeZ) {
+	
+	// switch to glCallList
+	glPushMatrix();
+	glScalef(sizeX, sizeY, sizeZ);
+	glutSolidCube(1);
+	glPopMatrix();
+}

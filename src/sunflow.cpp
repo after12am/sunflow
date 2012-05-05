@@ -18,7 +18,7 @@ sf::SFRenderer sfRenderer(glRenderer);
 
 
 void sf::clear() {
-	//sfRenderer.clear();
+	sfRenderer.clear();
 }
 
 void sf::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far) {
@@ -31,6 +31,26 @@ void sf::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f
 
 
 
+
+
+
+void sf::box(float size) {
+	sf::box(size, size, size);
+}
+
+void sf::box(float sizeX, float sizeY, float sizeZ) {
+	
+//	if (shader != 0)
+//	{
+//		float color[4];
+//		memcpy(color, shader->getColor(), 32);
+//		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, color);
+//	}
+	
+	// draw box
+	glRenderer.box(sizeX, sizeY, sizeZ);
+	sfRenderer.box();
+}
 
 
 

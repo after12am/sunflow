@@ -76,6 +76,8 @@ namespace sf {
 	
 	
 	
+	void box(float size = 1);
+	void box(float sizeX, float sizeY, float sizeZ);
 	
 	// for getting quick preview method
 	void quickRender();

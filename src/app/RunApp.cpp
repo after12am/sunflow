@@ -40,7 +40,8 @@ void RunApp::setup(BaseApp* app) {
 	srand((unsigned int)time(NULL));
 	
 	_app = app;
-	glutIdleFunc(update);
+	// too heavy
+	//glutIdleFunc(update);
 	glutDisplayFunc(draw);
 	glutKeyboardFunc(keyPressed);
 	glutReshapeFunc(windowResized);
@@ -63,10 +64,12 @@ void RunApp::update(){
 
 //--------------------------------------------------------------
 void RunApp::draw(){
+	update();
 	glPushMatrix();
 	glMultMatrixd(tb.rotate());
 	_app->draw();
 	glPopMatrix();
+	glutSwapBuffers();
 }
 
 //--------------------------------------------------------------

@@ -15,6 +15,11 @@
 
 #include "BaseBlock.h"
 #include "ImageBlock.h"
+#include "CameraBlock.h"
+#include "GIBlock.h"
+#include "LightBlock.h"
+#include "MeshBlock.h"
+#include "ShaderBlock.h"
 
 
 namespace sf {
@@ -37,12 +42,12 @@ namespace sf {
 		
 	public:
 		
-		string currShader;
+		ShaderBlock* currShader;
 		
 		SFRenderer(GLRenderer& _glRenderer) {
 			
 			glRenderer = _glRenderer;
-			currShader = SHADER_NONE;
+			currShader = 0;
 			blocks.push_back(new ImageBlock());
 		}
 		
@@ -57,10 +62,13 @@ namespace sf {
 		string filePath();
 		
 		ImageBlock* getImagePtr();
-		
+		CameraBlock* getCameraPtr();
 		
 		
 		void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far);
+		
+		// draw objects
+		void box();
 		
 		
 		void clear();

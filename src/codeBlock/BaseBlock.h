@@ -23,6 +23,10 @@ namespace sf {
 		string type;
 		string name;
 		
+		virtual ~BaseBlock() {
+			
+		}
+		
 		virtual void flush(BufferStream& stream) = 0;
 	};
 }

@@ -42,6 +42,7 @@ namespace sf {
 		
 		PinholeCameraBlock(const vec3f _eye, const vec3f _target, const vec3f _up, const float _fov, const float _aspect) {
 			
+			name = "pinhole";
 			eye = _eye;
 			target = _target;
 			up = _up;
@@ -52,7 +53,7 @@ namespace sf {
 		void flush(BufferStream& stream) {
 			
 			stream.push("camera");
-			stream.write("type", type);
+			stream.write("type", name);
 			stream.write("eye", eye.x, eye.y, eye.z);
 			stream.write("target", target.x, target.y, target.z);
 			stream.write("up", up.x, up.y, up.z);

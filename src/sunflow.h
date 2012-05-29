@@ -74,7 +74,16 @@ namespace sf {
 	// camera setting
 	void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far);
 	
+	void setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace);
 	
+	// set color with r, g, b, a from 0 to 1.
+	void setColor(float r, float g, float b, float a = 1.f);
+	
+	void pushMatrix();
+	void popMatrix();
+	void translate(float x, float y, float z);
+	void rotate(float angle, float axisX, float axisY, float axisZ);
+	void scale(float scaleX, float scaleY, float scaleZ);
 	
 	void box(float size = 1);
 	void box(float sizeX, float sizeY, float sizeZ);

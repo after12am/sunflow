@@ -18,6 +18,8 @@ using namespace sf;
 // if has no error, return 0.
 int SFRenderer::flush()
 {
+	string ss;
+	
 	ImageBlock* image = getImagePtr();
 	
 	image->flush(bufferStream);
@@ -25,11 +27,23 @@ int SFRenderer::flush()
 	CameraBlock* camera = getCameraPtr();
 	camera->flush(bufferStream);
 	
+	ss = "gi";
+	for (int i = 0; i < blocks.size(); i++) {
+		if (blocks[i]->type == ss) {
+			blocks[i]->flush(bufferStream);
+		}
+	}
+	
+	ss = "shader";
+	for (int i = 0; i < blocks.size(); i++) {
+		if (blocks[i]->type == ss) {
+			blocks[i]->flush(bufferStream);
+		}
+	}
+	
 	// flush box scheme
 	BoxScheme boxScheme;
 	boxScheme.flush(bufferStream);
-	
-	string ss;
 	
 	// flush objects
 	ss = "mesh";
@@ -39,7 +53,6 @@ int SFRenderer::flush()
 		}
 	}
 	
-	
 //	if (camera > 0) camera->flush(fstream);
 //	if (gi > 0) gi->flush(fstream);
 //	
@@ -48,6 +61,7 @@ int SFRenderer::flush()
 #ifdef DEBUG
 	bufferStream.dump();
 #endif
+	
 	bufferStream.save();
 	cout << "test" << endl;
 	return 0;
@@ -56,29 +70,28 @@ int SFRenderer::flush()
 void SFRenderer::clear()
 {
 	vector<BaseBlock*> _blocks;
-	string ss;
+	vector<string> deleteList;
+	
+	deleteList.push_back("mesh");
+	deleteList.push_back("light");
+	deleteList.push_back("shader");
 	
 	for (int i = 0; i < blocks.size(); i++)
 	{
-		ss = "mesh";
-		if (blocks[i]->type == ss) {
-			delete blocks[i];
-			continue;
+		bool deleted = false;
+		
+		for (int j = 0; j < deleteList.size(); j++) {
+			
+			if (blocks[i]->type == deleteList[j]) {
+				delete blocks[i];
+				deleted = true;
+				break;
+			}
 		}
 		
-		ss = "light";
-		if (blocks[i]->type == ss) {
-			delete blocks[i];
-			continue;
+		if (!deleted) {
+			_blocks.push_back(blocks[i]);
 		}
-		
-		ss = "shader";
-		if (blocks[i]->type == ss) {
-			delete blocks[i];
-			continue;
-		}
-		
-		_blocks.push_back(blocks[i]);
 	}
 	
 	blocks.swap(_blocks);
@@ -99,11 +112,11 @@ void SFRenderer::render() {
 
 /* get pointer
  ===============*/
-BaseBlock* SFRenderer::getPtr(string name)
+BaseBlock* SFRenderer::getPtr(string type)
 {
 	for (int i = 0; i < blocks.size(); i++) {
 		
-		if (blocks[i]->name == name) {
+		if (blocks[i]->type == type) {
 			return blocks[i];
 		}
 	}
@@ -118,16 +131,60 @@ CameraBlock* SFRenderer::getCameraPtr() {
 	return dynamic_cast<CameraBlock*>(getPtr("camera"));
 }
 
-
+vector<ShaderBlock*> SFRenderer::getShaders() {
+	
+	vector<ShaderBlock*> shaders;
+	
+	for (int i = 0; i < blocks.size(); i++) {
+		
+		if (blocks[i]->type == "shader") {
+			
+			ShaderBlock* shader = dynamic_cast<ShaderBlock*>(blocks[i]);
+			shaders.push_back(shader);
+		}
+	}
+	return shaders;
+}
 
 string SFRenderer::filePath() {
 	return bufferStream.getPath();
 }
 
-
 void SFRenderer::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far) {
-	
 	blocks.push_back(new PinholeCameraBlock(eye, target, up, fov, aspect));
+}
+
+void SFRenderer::setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace) {
+	blocks.push_back(new AmbientOcclusion(bright, dark, samples, maxdist, colorSpace));
+}
+
+void SFRenderer::setPointLight(const vec3f _position, const Color _color, const float _power, const string _colorSpace) {
+	blocks.push_back(new PointLight(_position, _color, _power, _colorSpace));
+}
+
+void SFRenderer::setColor(const float r, const float g, const float b, const float a) {
+	
+	// search shader
+	vector<ShaderBlock*> shaders = getShaders();
+	for (int i = 0; i < shaders.size(); i++) {
+		
+		Color c = shaders[i]->getColor();
+		
+		if (c.r == r && c.g == g && c.b == b && c.a == a) {
+			return;
+		}
+	}
+	
+	// name value have to be unique if using instance
+	stringstream ss;
+	ss << "Shader" << (blocks.size() + 1);
+	
+	DiffuseShader* shader = new DiffuseShader(ss.str(), Color(r, g, b, a), COLORSPACE_SRGB_NONLINEAR);
+	
+	blocks.push_back(shader);
+	
+	// set current shader
+	currShader = dynamic_cast<ShaderBlock*>(shader);
 }
 
 void SFRenderer::box() {

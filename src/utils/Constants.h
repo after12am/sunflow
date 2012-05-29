@@ -31,4 +31,25 @@ namespace sf {
 	typedef ofMatrix3x3 matrix3x3;
 	typedef ofMatrix4x4 matrix4x4;
 }
+
+namespace sf {
+	
+	class Color {
+		
+	public:
+		
+		float r;
+		float g;
+		float b;
+		float a;
+		
+		Color(const float _r = 0.f, const float _g = 0.f, const float _b = 0.f, const float _a = 0.f) {
+			r = _r;
+			g = _g;
+			b = _b;
+			a = _a;
+		}
+	};
+}
+
 #endif

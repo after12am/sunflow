@@ -22,32 +22,44 @@ void sf::clear() {
 }
 
 void sf::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far) {
-	
 	glRenderer.setupScreenPerspective(eye, target, up, fov, aspect, near, far);
 	sfRenderer.setupScreenPerspective(eye, target, up, fov, aspect, near, far);
 }
 
+void sf::setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace) {
+	sfRenderer.setAmbientOcclusion(bright, dark, samples, maxdist, colorSpace);
+}
 
+void sf::setColor(float r, float g, float b, float a) {
+	glRenderer.setColor(r, g, b, a);
+	sfRenderer.setColor(r, g, b, a);
+}
 
+void sf::pushMatrix() {
+	glRenderer.pushMatrix();
+}
 
+void sf::popMatrix() {
+	glRenderer.popMatrix();
+}
 
+void sf::translate(float x, float y, float z) {
+	glRenderer.translate(x, y, z);
+}
 
+void sf::rotate(float angle, float axisX, float axisY, float axisZ) {
+	glRenderer.rotate(angle, axisX, axisY, axisZ);
+}
 
+void sf::scale(float scaleX, float scaleY, float scaleZ) {
+	glRenderer.scale(scaleX, scaleY, scaleZ);
+}
 
 void sf::box(float size) {
 	sf::box(size, size, size);
 }
 
 void sf::box(float sizeX, float sizeY, float sizeZ) {
-	
-//	if (shader != 0)
-//	{
-//		float color[4];
-//		memcpy(color, shader->getColor(), 32);
-//		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, color);
-//	}
-	
-	// draw box
 	glRenderer.box(sizeX, sizeY, sizeZ);
 	sfRenderer.box();
 }
@@ -57,6 +69,7 @@ void sf::box(float sizeX, float sizeY, float sizeZ) {
 /* render
  =================*/
 
+// SFRendererにうつす
 // prototype statement
 void command(string command);
 void command(string filePath, string output, bool nogui, bool ipr);
@@ -84,7 +97,7 @@ void command(string filePath, string output, bool nogui, bool ipr)
 	
 	string optstr = options.str().c_str();
 	
-	cmd << "cd ./lib; ./sunflow " << optstr << filePath;
+	cmd << "cd ../../../lib; ./sunflow " << optstr << filePath;
 	
 	command(cmd.str());
 }

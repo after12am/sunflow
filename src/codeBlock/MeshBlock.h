@@ -13,12 +13,13 @@
 #include "BaseBlock.h"
 #include <vector.h>
 
+
 namespace sf {
 	
 	class Mesh : public BaseBlock {
 		
 	public:
-			
+		
 		vector<vec3f> vertices;
 		vector<vec3f> indices;
 		vector<vec3f> norms;
@@ -33,15 +34,20 @@ namespace sf {
 			m.makeScaleMatrix(0.001, 0.001, 0.001);
 		}
 		
-		virtual void flush(BufferStream& stream) = 0;
+		//virtual void flush(BufferStream& stream) = 0;
 	};
+}
+
+
+
+namespace sf {
 	
 	class BoxScheme : public Mesh {
 		
 	public:
 		
 		BoxScheme() {
-			type = "mesh";
+			type = "generic-mesh";
 			name = "\"Box\"";
 			shader = "none";
 		}
@@ -93,7 +99,7 @@ namespace sf {
 				stream.write("", m.getPtr()[i], m.getPtr()[i + 1], m.getPtr()[i + 2], m.getPtr()[i + 3]);
 			}
 			
-			stream.write("type", "generic-mesh");
+			stream.write("type", type);
 			stream.write("name", name);
 			stream.write("points", 8);
 			
@@ -117,6 +123,11 @@ namespace sf {
 			stream.pop();
 		}
 	};
+}
+
+
+
+namespace sf {
 	
 	class Box : public Mesh {
 		
@@ -133,7 +144,6 @@ namespace sf {
 		
 		
 		Box() {
-			type = "mesh";
 			name = "\"Box\"";
 			shader = SHADER_NONE;
 			geometry = "\"Box\"";

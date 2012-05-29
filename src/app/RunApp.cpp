@@ -11,6 +11,8 @@
 #include <GLUT/GLUT.h>
 #include <cmath>
 #include <time.h>
+#include "GLRenderer.h"
+#include "SFRenderer.h"
 
 using namespace sf;
 
@@ -39,8 +41,7 @@ void RunApp::setup(BaseApp* app) {
 	// clear seed
 	srand((unsigned int)time(NULL));
 	
-	_app = app;
-	// too heavy
+	// glutIdleFunc is forbidden for too heavy process
 	//glutIdleFunc(update);
 	glutDisplayFunc(draw);
 	glutKeyboardFunc(keyPressed);
@@ -48,7 +49,14 @@ void RunApp::setup(BaseApp* app) {
 	glutMouseFunc(mousePressed);
 	glutMotionFunc(mouseDragged);
 	glutPassiveMotionFunc(mouseMoved);
+	
+	// setup openGL 
+	GLRenderer::setup();
+	
+	// process user setup function
+	_app = app;
 	_app->setup();
+	
 	timer(1);
 	glutMainLoop();
 }

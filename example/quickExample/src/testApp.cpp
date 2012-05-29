@@ -8,6 +8,7 @@ bool doRender = false;
 //--------------------------------------------------------------
 void testApp::setup(){
 	
+	sf::setAmbientOcclusion(sf::Color(0.8, 0.8, 0.8), sf::Color(0, 0, 0), 32, 3.0, sf::COLORSPACE_SRGB_LINEAR);
 }
 
 //--------------------------------------------------------------
@@ -21,9 +22,11 @@ void testApp::draw(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	
-	glPushMatrix();
+	sf::pushMatrix();
+	sf::setColor(1, 0, 0);
 	sf::box(1);
-	glPopMatrix();
+	sf::popMatrix();
+	
 	
 	if (doRender) {
 		sf::quickRender();

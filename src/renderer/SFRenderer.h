@@ -63,9 +63,13 @@ namespace sf {
 		
 		ImageBlock* getImagePtr();
 		CameraBlock* getCameraPtr();
-		
+		vector<ShaderBlock*> getShaders();
 		
 		void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far);
+		
+		void setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace);
+		void setPointLight(const vec3f _position, const Color _color, const float _power, const string _colorSpace);
+		void setColor(const float r, const float g, const float b, const float a);
 		
 		// draw objects
 		void box();

@@ -133,7 +133,7 @@ void Trackball::click(int button, int state, int x, int y)
 			
 			if (state == GLUT_UP)
 			{
-				if (clickTime - lastClickTime < 300 * 1000)
+				if (clickTime - lastClickTime < 3 * 1000)
 					doubleClick(button, state, x, y);
 				lastClickTime = clickTime;
 			}

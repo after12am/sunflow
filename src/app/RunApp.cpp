@@ -16,27 +16,12 @@
 
 using namespace sf;
 
-//--------------------------------------------------------------
-int _frameRate = DEFAULT_FRAME_RATE;
-
-void sf::setWindowSize(int width, int height) {
-	IMPL
-}
-
-void sf::setFrameRate(int frameRate) {
-	_frameRate = frameRate;
-}
-
-int sf::getFrameRate() {
-	return _frameRate;
-}
+BaseApp* RunApp::app;
+Trackball RunApp::tb;
 
 //--------------------------------------------------------------
 
-BaseApp* _app;
-Trackball tb;
-
-void RunApp::setup(BaseApp* app) {
+void RunApp::setup() {
 	
 	// clear seed
 	srand((unsigned int)time(NULL));
@@ -54,8 +39,7 @@ void RunApp::setup(BaseApp* app) {
 	GLRenderer::setup();
 	
 	// process user setup function
-	_app = app;
-	_app->setup();
+	RunApp::app->setup();
 	
 	timer(1);
 	glutMainLoop();
@@ -63,71 +47,72 @@ void RunApp::setup(BaseApp* app) {
 
 //--------------------------------------------------------------
 void RunApp::update(){
-	
-	// cleanup sunflow renderer buffer
-	sf::clear();
-	
-	_app->update();
+	RunApp::app->update();
 }
 
 //--------------------------------------------------------------
 void RunApp::draw(){
+	
+	// cleanup sunflow renderer buffer and etc...
+	clear();
+	
+	// call for processing testApp::update()
 	update();
+	
 	glPushMatrix();
-	glMultMatrixd(tb.rotate());
-	_app->draw();
+	glMultMatrixd(RunApp::tb.rotate());
+	RunApp::app->draw();
 	glPopMatrix();
 	glutSwapBuffers();
+	
+	//cout << RunApp::tb.rotate()[0] << endl;
 }
 
 //--------------------------------------------------------------
 void RunApp::keyPressed(unsigned char key, int x, int y){
-	_app->keyPressed((char)key);
+	RunApp::app->keyPressed((char)key);
 }
 
 //--------------------------------------------------------------
-void RunApp::mouseMoved(int x, int y ) {
-	_app->mouseMoved(x, y);
+void RunApp::mouseMoved(int x, int y) {
+	RunApp::app->mouseMoved(x, y);
 }
 
 //--------------------------------------------------------------
 void RunApp::mouseDragged(int x, int y) {
-	tb.drag(x, y);
-	_app->mouseDragged(x, y);
+	RunApp::tb.drag(x, y);
+	RunApp::app->mouseDragged(x, y);
 }
 
 //--------------------------------------------------------------
 void RunApp::mousePressed(int button, int state, int x, int y){
-	tb.click(button, state, x, y);
-	_app->mousePressed(x, y, button);
+	RunApp::tb.click(button, state, x, y);
+	RunApp::app->mousePressed(x, y, button);
 }
 
 //--------------------------------------------------------------
 void RunApp::windowResized(int w, int h){
 	
-	// 構造体にしてsunflow.hへ移す
-	float fovy = 30.0;
-	float scale = 100;
-	float near = 1;
-	float far = 100;
-	float d = h  * 0.5 / tan(ofDegToRad(fovy * 0.5));
+	BaseApp::Camera camera = RunApp::app->camera;
+	
+	float dist = h  * 0.5f / tan(ofDegToRad(camera.fovy * 0.5f));
 	float aspect = (float)w / h;
 	
-	tb.resize(w, h);
+	RunApp::tb.resize(w, h);
 	
 	// set display range on screen
 	glViewport(0, 0, w, h);
 	
 	// As we use perspective camera as default, 
 	// mesh size is constant even if window is resized.
-	sf::setupScreenPerspective(sf::vec3f(16, 4, d / scale), sf::vec3f(0, 0, 0), sf::vec3f(0, 1, 0), 30, aspect, near, far);
+	setupScreenPerspective(vec3f(16, 4, dist / camera.scale), vec3f(0, 0, 0), vec3f(0, 1, 0), 30, aspect, camera.near, camera.far);
 	
-	_app->windowResized(w, h);
+	RunApp::app->windowResized(w, h);
 }
 
 //--------------------------------------------------------------
 void RunApp::timer(int value) {
 	update();
 	glutPostRedisplay();
-	glutTimerFunc(1000 / sf::getFrameRate(), timer, 0);
+	glutTimerFunc(1000 / getFrameRate(), timer, 0);
 }

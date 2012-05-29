@@ -10,30 +10,30 @@
 #define _RunApp_h
 
 #include "sunflow.h"
-#include <iostream.h>
-
-namespace sf {
-	
-	void setWindowSize(int width, int height);
-	void setFrameRate(int frameRate);
-	int getFrameRate();
-}
+#include "Trackball.h"
 
 namespace sf {
 	
 	class RunApp {
 		
+	protected:
+		
+		static BaseApp* app;
+		static Trackball tb;
+		
 	public:
 		
-		RunApp(BaseApp* app) {
-			setup(app);
+		RunApp(BaseApp* _app) {
+			
+			RunApp::app = _app;
+			setup();
 		}
 		
 		~RunApp() {
 			
 		}
 		
-		void setup(BaseApp* app);
+		void setup();
 		static void update();
 		static void draw();
 		static void keyPressed(unsigned char key, int x, int y);

@@ -16,6 +16,20 @@ namespace sf {
 		
 	public:
 		
+		struct Camera {
+			float fovy;
+			float scale;
+			float near;
+			float far;
+		} camera;
+		
+		BaseApp() {
+			camera.fovy = 30.0;
+			camera.scale = 100;
+			camera.near = 1;
+			camera.far = 1000;
+		}
+		
 		virtual void setup() = 0;
 		virtual void update() = 0;
 		virtual void draw() = 0;

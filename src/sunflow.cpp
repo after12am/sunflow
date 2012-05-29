@@ -64,6 +64,11 @@ void sf::box(float sizeX, float sizeY, float sizeZ) {
 	sfRenderer.box();
 }
 
+void sf::floor() {
+	glRenderer.floor();
+	sfRenderer.floor();
+}
+
 
 
 /* render

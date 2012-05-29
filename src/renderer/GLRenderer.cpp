@@ -68,10 +68,21 @@ void GLRenderer::scale(float scaleX, float scaleY, float scaleZ) {
 }
 
 void GLRenderer::box(float sizeX, float sizeY, float sizeZ) {
-	
 	// switch to glCallList
 	glPushMatrix();
 	glScalef(sizeX, sizeY, sizeZ);
 	glutSolidCube(1);
+	glPopMatrix();
+}
+
+void GLRenderer::floor() {
+	glPushMatrix();
+	glScalef(10000, 1, 10000);
+	glBegin(GL_QUADS);
+	glVertex3f(-.5f, 0, -.5f);
+	glVertex3f( .5f, 0, -.5f);
+	glVertex3f( .5f, 0,  .5f);
+	glVertex3f(-.5f, 0,  .5f);
+	glEnd();
 	glPopMatrix();
 }

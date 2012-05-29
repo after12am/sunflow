@@ -19,26 +19,20 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	
 	sf::pushMatrix();
 	sf::setColor(1, 0, 0);
 	sf::box(1);
 	sf::popMatrix();
-	
-	
-	if (doRender) {
-		sf::quickRender();
-		doRender = false;
-	}
+	sf::floor();
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
 	
 	if (key == 'r') {
-		doRender = true;
+		sf::quickRender();
 	}
 }
 

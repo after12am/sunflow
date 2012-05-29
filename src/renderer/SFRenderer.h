@@ -71,9 +71,8 @@ namespace sf {
 		void setPointLight(const vec3f _position, const Color _color, const float _power, const string _colorSpace);
 		void setColor(const float r, const float g, const float b, const float a);
 		
-		// draw objects
 		void box();
-		
+		void floor();
 		
 		void clear();
 		void render();

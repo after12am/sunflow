@@ -85,8 +85,19 @@ namespace sf {
 	void rotate(float angle, float axisX, float axisY, float axisZ);
 	void scale(float scaleX, float scaleY, float scaleZ);
 	
-	void box(float size = 1);
+	void box(float size = 1.f);
 	void box(float sizeX, float sizeY, float sizeZ);
+	
+	// ------------------------------------------------------
+	//   FLOOR PRIMITIVE GUIDE
+	// ------------------------------------------------------
+	// - infinite plane
+	//   
+	//   center point p(0, 0, 0)
+	//   normal       n(0, 1, 0)
+	// ------------------------------------------------------
+	void floor();
+	
 	
 	// for getting quick preview method
 	void quickRender();

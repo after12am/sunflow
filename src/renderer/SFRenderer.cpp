@@ -207,3 +207,21 @@ void SFRenderer::box() {
 	blocks.push_back(box);
 }
 
+void SFRenderer::floor() {
+	
+	matrix4x4 m;
+	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
+	
+	// name value have to be unique if using instance
+	Plane* plane = new Plane();
+	plane->name = bid();
+	plane->m = m;
+	plane->p = vec3f(0, 0, 0);
+	plane->n = vec3f(0, 1, 0);
+	
+	if (currShader) {
+		plane->shader = currShader->name;
+	}
+	
+	blocks.push_back(plane);
+}

@@ -31,6 +31,7 @@ namespace sf {
 		Mesh() {
 			type = "mesh";
 			name = "mesh";
+			shader = SHADER_NONE;
 			m.makeScaleMatrix(0.001, 0.001, 0.001);
 		}
 		
@@ -49,7 +50,6 @@ namespace sf {
 		BoxScheme() {
 			type = "generic-mesh";
 			name = "\"Box\"";
-			shader = "none";
 		}
 		
 		~BoxScheme() {
@@ -136,16 +136,10 @@ namespace sf {
 		vector<vec3f> vertices;
 		vector<vec3f> indices;
 		vector<vec3f> norms;
-		
 		string geometry;
-		
-		// using shader name
-		string shader;
-		
 		
 		Box() {
 			name = "\"Box\"";
-			shader = SHADER_NONE;
 			geometry = "\"Box\"";
 			m.makeScaleMatrix(1, 1, 1);
 		}
@@ -166,6 +160,38 @@ namespace sf {
 			}
 			
 			stream.write("shader", shader);
+			stream.pop();
+		}
+	};
+}
+
+
+namespace sf {
+	
+	class Plane : public Mesh {
+		
+	public:
+		
+		vec3f p;
+		vec3f n;
+		
+		Plane() {
+			name = "plane";
+		}
+		
+		void flush(BufferStream& stream)
+		{
+			stream.push("object");
+			stream.write("shader", shader);
+			stream.write("transform col");
+			
+			for (int i = 0; i < 16; i = i + 4) {
+				stream.write("", m.getPtr()[i], m.getPtr()[i + 1], m.getPtr()[i + 2], m.getPtr()[i + 3]);
+			}
+			
+			stream.write("type", "plane");
+			stream.write("p", p.x, p.y, p.z);
+			stream.write("n", n.x, n.y, n.z);
 			stream.pop();
 		}
 	};

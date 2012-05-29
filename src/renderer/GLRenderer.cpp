@@ -30,10 +30,18 @@ void GLRenderer::setup() {
 	glEnable(GL_LIGHT0);
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, color);
+	
+	// setup glCallList
+	
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_ALPHA_TEST);
+}
+
+void GLRenderer::clear() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
 void GLRenderer::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far) {
-	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(fov, aspect, near, far);

@@ -27,6 +27,7 @@ namespace sf {
 		}
 		
 		static void setup();
+		void clear();
 		
 		int getWindowWidth();
 		int getWindowHeight();
@@ -43,6 +44,7 @@ namespace sf {
 		
 		// draw box
 		void box(float sizeX, float sizeY, float sizeZ);
+		void floor();
 	};
 }
 

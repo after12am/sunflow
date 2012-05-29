@@ -67,6 +67,11 @@ namespace sf {
 //	const char MODIFIER_NORMAL_MAP[32] = "normal_map";
 //	const char MODIFIER_PERLIN_MAP[32] = "perlin";
 	
+	
+	void setWindowSize(int width, int height);
+	void setFrameRate(int frameRate);
+	int getFrameRate();
+	
 	// we have to call every frame.
 	void clear();
 	

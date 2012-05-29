@@ -12,12 +12,25 @@
 #include "SFRenderer.h"
 #include <sstream>
 
-
 sf::GLRenderer glRenderer;
 sf::SFRenderer sfRenderer(glRenderer);
 
+int frameRate = DEFAULT_FRAME_RATE;
+
+void sf::setWindowSize(int width, int height) {
+	IMPL
+}
+
+void sf::setFrameRate(int _frameRate) {
+	frameRate = _frameRate;
+}
+
+int sf::getFrameRate() {
+	return frameRate;
+}
 
 void sf::clear() {
+	glRenderer.clear();
 	sfRenderer.clear();
 }
 

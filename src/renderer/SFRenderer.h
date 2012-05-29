@@ -37,6 +37,9 @@ namespace sf {
 		// return pointer by name
 		BaseBlock* getPtr(string name);
 		
+		// return block unique id
+		string bid();
+		
 		// flush sc file
 		int flush();
 		

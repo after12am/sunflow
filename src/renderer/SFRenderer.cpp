@@ -14,10 +14,18 @@
 using namespace sf;
 
 
+string SFRenderer::bid() {
+	stringstream ss;
+	ss << "b" << (blocks.size() + 1);
+	return ss.str();
+}
+
 // if has error, return value( > 0).
 // if has no error, return 0.
-int SFRenderer::flush()
-{
+int SFRenderer::flush() {
+	
+	// attension: reduce process of flush
+	
 	string ss;
 	
 	ImageBlock* image = getImagePtr();
@@ -63,33 +71,28 @@ int SFRenderer::flush()
 #endif
 	
 	bufferStream.save();
-	cout << "test" << endl;
 	return 0;
 }
 
-void SFRenderer::clear()
-{
-	vector<BaseBlock*> _blocks;
-	vector<string> deleteList;
+void SFRenderer::clear() {
 	
-	deleteList.push_back("mesh");
-	deleteList.push_back("light");
-	deleteList.push_back("shader");
+	string deleteList[] = {"mesh", "light", "shader"};
+	vector<BaseBlock*> _blocks;
 	
 	for (int i = 0; i < blocks.size(); i++)
 	{
-		bool deleted = false;
+		bool nodelete = true;
 		
-		for (int j = 0; j < deleteList.size(); j++) {
+		for (int j = 0; j < sizeof(deleteList) / sizeof(string); j++) {
 			
 			if (blocks[i]->type == deleteList[j]) {
 				delete blocks[i];
-				deleted = true;
+				nodelete = false;
 				break;
 			}
 		}
 		
-		if (!deleted) {
+		if (nodelete) {
 			_blocks.push_back(blocks[i]);
 		}
 	}
@@ -98,28 +101,23 @@ void SFRenderer::clear()
 }
 
 void SFRenderer::render() {
-	//	renderer.setResolution(width, height);
-	//	renderer.setAA(aaMin, aaMax);
-	//	renderer.setSamples(samples);
-	//	renderer.setFilter(filter);
 	
 	ImageBlock* image = getImagePtr();
 	image->resolution = vec2f(glRenderer.getWindowWidth(), glRenderer.getWindowHeight());
 	
+	// save output.sc
 	flush();
 }
 
-
-/* get pointer
- ===============*/
-BaseBlock* SFRenderer::getPtr(string type)
-{
+BaseBlock* SFRenderer::getPtr(string type) {
+	
 	for (int i = 0; i < blocks.size(); i++) {
 		
 		if (blocks[i]->type == type) {
 			return blocks[i];
 		}
 	}
+	
 	return 0;
 }
 
@@ -171,16 +169,13 @@ void SFRenderer::setColor(const float r, const float g, const float b, const flo
 		Color c = shaders[i]->getColor();
 		
 		if (c.r == r && c.g == g && c.b == b && c.a == a) {
+			// set current shader
+			currShader = dynamic_cast<ShaderBlock*>(shaders[i]);
 			return;
 		}
 	}
 	
-	// name value have to be unique if using instance
-	stringstream ss;
-	ss << "Shader" << (blocks.size() + 1);
-	
-	DiffuseShader* shader = new DiffuseShader(ss.str(), Color(r, g, b, a), COLORSPACE_SRGB_NONLINEAR);
-	
+	DiffuseShader* shader = new DiffuseShader(bid(), Color(r, g, b, a), COLORSPACE_SRGB_NONLINEAR);
 	blocks.push_back(shader);
 	
 	// set current shader
@@ -192,12 +187,8 @@ void SFRenderer::box() {
 	matrix4x4 m;
 	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
 	
-	// name value have to be unique if using instance
-	stringstream ss;
-	ss << "Box" << (blocks.size() + 1);
-	
 	Box* box = new Box();
-	box->name = ss.str();
+	box->name = bid();
 	box->m = m;
 	
 	if (currShader) {

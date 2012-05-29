@@ -1,1 +1,1 @@
-A small toolkit for use of sunflow renderer from c++. not functional yet.
+A small toolkit for use of sunflow renderer from c++. now under develop.

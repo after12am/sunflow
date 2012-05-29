@@ -3,7 +3,6 @@
 #include <GLUT/GLUT.h>
 #include <iostream.h>
 
-bool doRender = false;
 
 //--------------------------------------------------------------
 void testApp::setup(){

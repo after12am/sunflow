@@ -9,18 +9,10 @@
 #ifndef _sunflow_h
 #define _sunflow_h
 
-// app
 #include "BaseApp.h"
 #include "RunApp.h"
-
-// utils
 #include "Constants.h"
 #include "Trackball.h"
-
-
-
-#define DEBUG 1
-
 
 namespace sf {
 	
@@ -71,7 +63,8 @@ namespace sf {
 	int getWindowHeight();
 	void setWindowSize(int width, int height);
 	void setFrameRate(int i);
-	int frameRate();
+	int getFrameRate();
+	string getBinDir(int bufSize = 1024);
 	
 	// We have to call every frame.
 	// If you are a user, dont worry about this. This clear method is calling at background every RunApp::draw(). 

@@ -84,18 +84,17 @@ void SFRenderer::call(Option option) {
 	ss << options.str();
 	ss << option.filePath;
 	
-#ifdef DEBUG
-	cout << "[INFO] execute " << ss.str() << endl;
-#endif
-	
 	string command = ss.str();
-	
-	if (system(command.c_str()) != 0) {
+	if (system(command.c_str())) {
+		cout << "[INFO] execute " << ss.str() << endl;
+	} else {
 		cout << "[ERROR] sunflow render command error has occured." << endl;
 	}
 }
 
 void SFRenderer::clear() {
+	
+	currShader = 0;
 	
 	for (int i = 0; i < sc.shaders.size(); i++) {
 		delete sc.shaders[i];

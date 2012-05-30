@@ -9,7 +9,6 @@
 #ifndef _BaseApp_h
 #define _BaseApp_h
 
-
 namespace sf {
 	
 	class BaseApp {

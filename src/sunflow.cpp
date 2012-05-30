@@ -34,8 +34,15 @@ void sf::setFrameRate(int i) {
 	_frameRate = i;
 }
 
-int sf::frameRate() {
+int sf::getFrameRate() {
 	return _frameRate;
+}
+
+string sf::getBinDir(int bufSize) {
+	char buf[bufSize];
+	getcwd(buf, sizeof(buf));
+	string ss = buf;
+	return ss.c_str();
 }
 
 void sf::_clear() {

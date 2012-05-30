@@ -118,5 +118,5 @@ void RunApp::windowResized(int w, int h){
 void RunApp::timer(int value) {
 	update();
 	glutPostRedisplay();
-	glutTimerFunc(1000 / frameRate(), timer, 0);
+	glutTimerFunc(1000 / getFrameRate(), timer, 0);
 }

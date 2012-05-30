@@ -38,7 +38,6 @@ namespace sf {
 		BufferStream bufferStream;
 		ShaderBlock* currShader;
 		
-		
 	public:
 		
 		struct Option {

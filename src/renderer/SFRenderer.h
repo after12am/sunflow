@@ -12,7 +12,6 @@
 #include "sunflow.h"
 #include "GLRenderer.h"
 #include "BufferStream.h"
-
 #include "BaseBlock.h"
 #include "ImageBlock.h"
 #include "CameraBlock.h"
@@ -21,75 +20,70 @@
 #include "MeshBlock.h"
 #include "ShaderBlock.h"
 
-
 namespace sf {
 	
 	class SFRenderer {
 		
 	protected:
 		
-		BufferStream bufferStream;
-		vector<BaseBlock*> blocks;
+		struct Blocks {
+			ImageBlock* image;
+			CameraBlock* camera;
+			GIBlock* gi;
+			vector<Light*> lights;
+			vector<ShaderBlock*> shaders;
+			vector<MeshBlock*> objects;
+		} sc;
 		
-		// flush sc file
-		void flush(const string type);
-		int flush();
+		BufferStream bufferStream;
+		ShaderBlock* currShader;
+		
 		
 	public:
 		
-		struct CommandOption {
+		struct Option {
 			bool nogui;
 			bool ipr;
 			string output;
 			string filePath;
 		} option;
 		
-		ShaderBlock* currShader;
-		
 		SFRenderer() {
 			
-			// setup command option
+			currShader = 0;
+			
+			sc.image = new ImageBlock();
+			sc.camera = 0;
+			sc.gi = 0;
+			
 			option.nogui = false;
 			option.ipr = true;
 			option.output = "";
-			
-			currShader = 0;
-			blocks.push_back(new ImageBlock());
 		}
 		
-		~SFRenderer() {
-			
-			for (int i = 0; i < blocks.size(); i++) {
-				delete blocks[i];
-			}
-		}
+		~SFRenderer();
 		
 		string bid();
-		string filePath();
 		
-		BaseBlock* getPtr(string name);
-		ImageBlock* getImagePtr();
-		CameraBlock* getCameraPtr();
-		GIBlock* getGIPtr();
-		vector<ShaderBlock*> getShaders();
+		// call sunflow command
+		void call(Option option);
 		
-		void smooth(const int min, const int max);
-		void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect);
+		void clear();
+		void flush();
+		void render();
 		void setImageResolution(int width, int height);
 		void setFilter(string filter);
+		void smooth(const int min, const int max);
+		void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect);
 		void setAmboccBright(const Color bright);
 		void setAmboccDark(const Color dark);
 		void setAmbocc(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace);
 		void setPointLight(const vec3f _position, const Color _color, const float _power, const string _colorSpace);
 		void setColor(const float r, const float g, const float b, const float a);
-		
 		void sphere();
 		void box();
 		void quads(vector<vec3f> vertices);
 		void floor();
-		
-		void clear();
-		void render();
 	};
 }
 

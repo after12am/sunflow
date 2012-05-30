@@ -14,7 +14,55 @@
 using namespace sf;
 
 
-void callAPI(SFRenderer::CommandOption option) {
+SFRenderer::~SFRenderer() {
+	
+	delete sc.image;
+	delete sc.camera;
+	delete sc.gi;
+	
+	for (int i = 0; i < sc.shaders.size(); i++) {
+		delete sc.shaders[i];
+	}
+	
+	sc.shaders.clear();
+	
+	for (int i = 0; i < sc.lights.size(); i++) {
+		delete sc.lights[i];
+	}
+	
+	sc.lights.clear();
+	
+	for (int i = 0; i < sc.objects.size(); i++) {
+		delete sc.objects[i];
+	}
+	
+	sc.objects.clear();
+}
+
+string SFRenderer::bid() {
+	
+	int n = 0;
+	
+	if (sc.image) {
+		n++;
+	}
+	if (sc.camera) {
+		n++;
+	}
+	if (sc.gi) {
+		n++;
+	}
+	n += sc.lights.size();
+	n += sc.shaders.size();
+	n += sc.objects.size();
+	
+	stringstream ss;
+	// 'b' means 'block'
+	ss << "b" << n;
+	return ss.str();
+}
+
+void SFRenderer::call(Option option) {
 	
 	stringstream options;
 	
@@ -47,70 +95,54 @@ void callAPI(SFRenderer::CommandOption option) {
 	}
 }
 
-string SFRenderer::bid() {
-	stringstream ss;
-	// 'b' means 'block'
-	ss << "b" << (blocks.size() + 1);
-	return ss.str();
-}
-
-void SFRenderer::flush(const string type) {
+void SFRenderer::clear() {
 	
-	for (int i = 0; i < blocks.size(); i++) {
-		if (blocks[i]->type == type) {
-			blocks[i]->flush(bufferStream);
-		}
+	for (int i = 0; i < sc.shaders.size(); i++) {
+		delete sc.shaders[i];
 	}
+	
+	sc.shaders.clear();
+	
+	for (int i = 0; i < sc.lights.size(); i++) {
+		delete sc.lights[i];
+	}
+	
+	sc.lights.clear();
+	
+	for (int i = 0; i < sc.objects.size(); i++) {
+		delete sc.objects[i];
+	}
+	
+	sc.objects.clear();
 }
 
-int SFRenderer::flush() {
+void SFRenderer::flush() {
 	
-	flush("image");
-	flush("camera");
-	flush("gi");
-	flush("shader");
+	sc.image->flush(bufferStream);
+	sc.camera->flush(bufferStream);
+	sc.gi->flush(bufferStream);
+	
+	for (int i = 0; i < sc.lights.size(); i++) {
+		sc.lights[i]->flush(bufferStream);
+	}
+	
+	for (int i = 0; i < sc.shaders.size(); i++) {
+		sc.shaders[i]->flush(bufferStream);
+	}
 	
 	BoxObjectBlock boxScheme;
 	boxScheme.flush(bufferStream);
 	
-	flush("generic-mesh");
-	flush("object");
-	flush("instance");
+	for (int i = 0; i < sc.objects.size(); i++) {
+		sc.objects[i]->flush(bufferStream);
+	}
 	
 #ifdef DEBUG
 	bufferStream.dump();
 #endif
 	
 	bufferStream.save();
-	return 0;
 }
-
-void SFRenderer::clear() {
-	
-	string deleteList[] = {"generic-mesh", "object", "instance", "light", "shader"};
-	vector<BaseBlock*> _blocks;
-	
-	for (int i = 0; i < blocks.size(); i++) {
-		
-		bool nodelete = true;
-		
-		for (int j = 0; j < sizeof(deleteList) / sizeof(string); j++) {
-			
-			if (blocks[i]->type == deleteList[j]) {
-				delete blocks[i];
-				nodelete = false;
-				break;
-			}
-		}
-		
-		if (nodelete) {
-			_blocks.push_back(blocks[i]);
-		}
-	}
-	
-	blocks.swap(_blocks);
-}
-
 
 void SFRenderer::render() {
 	
@@ -121,87 +153,39 @@ void SFRenderer::render() {
 	option.filePath = bufferStream.getPath();
 	
 	// start rendering
-	callAPI(option);
+	call(option);
+}
+
+void SFRenderer::setImageResolution(int width, int height) {
+	sc.image->resolution = vec2f(width, height);
+}
+
+void SFRenderer::setFilter(string filter) {
+	sc.image->filter = filter;
 }
 
 void SFRenderer::smooth(const int min, const int max) {
-	ImageBlock* image = getImagePtr();
-	image->aaMin = min;
-	image->aaMax = max;
-}
-
-BaseBlock* SFRenderer::getPtr(string type) {
-	
-	for (int i = 0; i < blocks.size(); i++) {
-		
-		if (blocks[i]->type == type) {
-			return blocks[i];
-		}
-	}
-	
-	return 0;
-}
-
-ImageBlock* SFRenderer::getImagePtr() {
-	return dynamic_cast<ImageBlock*>(getPtr("image"));
-}
-
-CameraBlock* SFRenderer::getCameraPtr() {
-	return dynamic_cast<CameraBlock*>(getPtr("camera"));
-}
-
-GIBlock* SFRenderer::getGIPtr() {
-	return dynamic_cast<GIBlock*>(getPtr("gi"));
-}
-
-vector<ShaderBlock*> SFRenderer::getShaders() {
-	
-	vector<ShaderBlock*> shaders;
-	
-	for (int i = 0; i < blocks.size(); i++) {
-		
-		if (blocks[i]->type == "shader") {
-			
-			ShaderBlock* shader = dynamic_cast<ShaderBlock*>(blocks[i]);
-			shaders.push_back(shader);
-		}
-	}
-	return shaders;
-}
-
-string SFRenderer::filePath() {
-	return bufferStream.getPath();
+	sc.image->aaMin = min;
+	sc.image->aaMax = max;
 }
 
 void SFRenderer::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect) {
 	
-	PinholeCameraBlock* camera = dynamic_cast<PinholeCameraBlock*>(getCameraPtr());
-	
-	if (camera) {
+	if (sc.camera) {
+		PinholeCameraBlock* camera = dynamic_cast<PinholeCameraBlock*>(sc.camera);
 		camera->eye = eye;
 		camera->target = target;
 		camera->up = up;
 		camera->fov = fov;
 		camera->aspect = aspect;
 	} else {
-		blocks.push_back(new PinholeCameraBlock(eye, target, up, fov, aspect));
+		sc.camera = new PinholeCameraBlock(eye, target, up, fov, aspect);
 	}
-}
-
-void SFRenderer::setImageResolution(int width, int height) {
-	
-	ImageBlock* image = getImagePtr();
-	image->resolution = vec2f(width, height);
-}
-
-void SFRenderer::setFilter(string filter) {
-	ImageBlock* image = getImagePtr();
-	image->filter = filter;
 }
 
 void SFRenderer::setAmboccBright(const Color bright) {
 	
-	AmbientOcclusionBlock* ambocc = dynamic_cast<AmbientOcclusionBlock*>(getGIPtr());
+	AmbientOcclusionBlock* ambocc = dynamic_cast<AmbientOcclusionBlock*>(sc.gi);
 	
 	if (ambocc) {
 		ambocc->bright = bright;
@@ -210,7 +194,7 @@ void SFRenderer::setAmboccBright(const Color bright) {
 
 void SFRenderer::setAmboccDark(const Color dark) {
 	
-	AmbientOcclusionBlock* ambocc = dynamic_cast<AmbientOcclusionBlock*>(getGIPtr());
+	AmbientOcclusionBlock* ambocc = dynamic_cast<AmbientOcclusionBlock*>(sc.gi);
 	
 	if (ambocc) {
 		ambocc->dark = dark;
@@ -219,7 +203,7 @@ void SFRenderer::setAmboccDark(const Color dark) {
 
 void SFRenderer::setAmbocc(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace) {
 	
-	AmbientOcclusionBlock* ambocc = dynamic_cast<AmbientOcclusionBlock*>(getGIPtr());
+	AmbientOcclusionBlock* ambocc = dynamic_cast<AmbientOcclusionBlock*>(sc.gi);
 	
 	if (ambocc) {
 		ambocc->bright = bright;
@@ -228,31 +212,30 @@ void SFRenderer::setAmbocc(const Color bright, const Color dark, const int sampl
 		ambocc->maxdist = maxdist;
 		ambocc->colorSpace = colorSpace;
 	} else {
-		blocks.push_back(new AmbientOcclusionBlock(bright, dark, samples, maxdist, colorSpace));
+		sc.gi = new AmbientOcclusionBlock(bright, dark, samples, maxdist, colorSpace);
 	}
 }
 
 void SFRenderer::setPointLight(const vec3f _position, const Color _color, const float _power, const string _colorSpace) {
-	blocks.push_back(new PointLightBlock(_position, _color, _power, _colorSpace));
+	sc.lights.push_back(new PointLightBlock(_position, _color, _power, _colorSpace));
 }
 
 void SFRenderer::setColor(const float r, const float g, const float b, const float a) {
 	
 	// search shader
-	vector<ShaderBlock*> shaders = getShaders();
-	for (int i = 0; i < shaders.size(); i++) {
+	for (int i = 0; i < sc.shaders.size(); i++) {
 		
-		Color c = shaders[i]->getColor();
+		Color c = sc.shaders[i]->getColor();
 		
 		if (c.r == r && c.g == g && c.b == b && c.a == a) {
 			// set current shader
-			currShader = dynamic_cast<ShaderBlock*>(shaders[i]);
+			currShader = dynamic_cast<ShaderBlock*>(sc.shaders[i]);
 			return;
 		}
 	}
 	
 	DiffuseShader* shader = new DiffuseShader(bid(), Color(r, g, b, a), COLORSPACE_SRGB_NONLINEAR);
-	blocks.push_back(shader);
+	sc.shaders.push_back(shader);
 	
 	// set current shader
 	currShader = dynamic_cast<ShaderBlock*>(shader);
@@ -274,7 +257,7 @@ void SFRenderer::sphere() {
 		sphere->shader = currShader->name;
 	}
 	
-	blocks.push_back(sphere);
+	sc.objects.push_back(sphere);
 }
 
 void SFRenderer::box() {
@@ -290,7 +273,7 @@ void SFRenderer::box() {
 		box->shader = currShader->name;
 	}
 	
-	blocks.push_back(box);
+	sc.objects.push_back(box);
 }
 
 void SFRenderer::quads(vector<vec3f> vertices) {
@@ -307,7 +290,7 @@ void SFRenderer::quads(vector<vec3f> vertices) {
 		quads->shader = currShader->name;
 	}
 	
-	blocks.push_back(quads);
+	sc.objects.push_back(quads);
 }
 
 void SFRenderer::floor() {
@@ -326,5 +309,5 @@ void SFRenderer::floor() {
 		plane->shader = currShader->name;
 	}
 	
-	blocks.push_back(plane);
+	sc.objects.push_back(plane);
 }

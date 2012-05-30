@@ -10,7 +10,13 @@
 #define _Constants_h
 
 #define IMPL printf("[FUNCTION NOT IMPLEMENTED YET] %s\n", __PRETTY_FUNCTION__); exit(1);
-#define DEFAULT_FRAME_RATE 30
+#define FRAME_RATE 30
+
+// relative path from bin directory
+#define SUNFLOW_FILE_PATH "../../../lib"
+#define SUNFLOW_COMMAND "sunflow"
+#define SUNFLOW_SC ".sc"
+
 
 // contribute
 #include "ofMath.h"

@@ -14,6 +14,39 @@
 using namespace sf;
 
 
+void callAPI(SFRenderer::CommandOption option) {
+	
+	stringstream options;
+	
+	if (option.output != "") {
+		options << " -o " << option.output << " ";
+	}
+	
+	if (option.nogui) {
+		options << " -nogui ";
+	}
+	
+	if (option.ipr) {
+		options << " -ipr ";
+	}
+	
+	stringstream ss;
+	ss << "cd " << SUNFLOW_FILE_PATH << ";";
+	ss << "./" << SUNFLOW_COMMAND;
+	ss << options.str();
+	ss << option.filePath;
+	
+#ifdef DEBUG
+	cout << "[INFO] execute " << ss.str() << endl;
+#endif
+	
+	string command = ss.str();
+	
+	if (system(command.c_str()) != 0) {
+		cout << "[ERROR] sunflow render command error has occured." << endl;
+	}
+}
+
 string SFRenderer::bid() {
 	stringstream ss;
 	// 'b' means 'block'
@@ -85,36 +118,11 @@ void SFRenderer::render() {
 	// save output.sc
 	flush();
 	
-	// execute render command
-	stringstream options;
+	// set .sc file path
+	option.filePath = bufferStream.getPath();
 	
-	if (commandOption.output != "") {
-		options << " -o " << commandOption.output << " ";
-	}
-	
-	if (commandOption.nogui) {
-		options << " -nogui ";
-	}
-	
-	if (commandOption.ipr) {
-		options << " -ipr ";
-	}
-	
-	stringstream ss;
-	ss << "cd " << SUNFLOW_FILE_PATH << ";";
-	ss << "./" << SUNFLOW_COMMAND;
-	ss << options.str();
-	ss << filePath();
-	
-#ifdef DEBUG
-	cout << "[INFO] execute " << ss.str() << endl;
-#endif
-	
-	string command = ss.str();
-	
-	if (system(command.c_str()) != 0) {
-		cout << "[ERROR] sunflow render command error has occured." << endl;
-	}
+	// start rendering
+	callAPI(option);
 }
 
 void SFRenderer::smooth(const int min, const int max) {

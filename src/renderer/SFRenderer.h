@@ -41,16 +41,17 @@ namespace sf {
 			bool nogui;
 			bool ipr;
 			string output;
-		} commandOption;
+			string filePath;
+		} option;
 		
 		ShaderBlock* currShader;
 		
 		SFRenderer() {
 			
 			// setup command option
-			commandOption.nogui = false;
-			commandOption.ipr = true;
-			commandOption.output = "";
+			option.nogui = false;
+			option.ipr = true;
+			option.output = "";
 			
 			currShader = 0;
 			blocks.push_back(new ImageBlock());

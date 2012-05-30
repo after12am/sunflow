@@ -82,9 +82,6 @@ void SFRenderer::clear() {
 
 void SFRenderer::render() {
 	
-	ImageBlock* image = getImagePtr();
-	image->resolution = vec2f(glRenderer.getWindowWidth(), glRenderer.getWindowHeight());
-	
 	// save output.sc
 	flush();
 	
@@ -146,6 +143,10 @@ CameraBlock* SFRenderer::getCameraPtr() {
 	return dynamic_cast<CameraBlock*>(getPtr("camera"));
 }
 
+GIBlock* SFRenderer::getGIPtr() {
+	return dynamic_cast<GIBlock*>(getPtr("gi"));
+}
+
 vector<ShaderBlock*> SFRenderer::getShaders() {
 	
 	vector<ShaderBlock*> shaders;
@@ -180,10 +181,43 @@ void SFRenderer::setupScreenPerspective(const vec3f eye, const vec3f target, con
 	}
 }
 
-void SFRenderer::setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace) {
-	// no good cording
-	// ambcc block has to be only one block in the stack
-	blocks.push_back(new AmbientOcclusionBlock(bright, dark, samples, maxdist, colorSpace));
+void SFRenderer::setImageResolution(int width, int height) {
+	
+	ImageBlock* image = getImagePtr();
+	image->resolution = vec2f(width, height);
+}
+
+void SFRenderer::setAmboccBright(const Color bright) {
+	
+	AmbientOcclusionBlock* ambocc = dynamic_cast<AmbientOcclusionBlock*>(getGIPtr());
+	
+	if (ambocc) {
+		ambocc->bright = bright;
+	}
+}
+
+void SFRenderer::setAmboccDark(const Color dark) {
+	
+	AmbientOcclusionBlock* ambocc = dynamic_cast<AmbientOcclusionBlock*>(getGIPtr());
+	
+	if (ambocc) {
+		ambocc->dark = dark;
+	}
+}
+
+void SFRenderer::setAmbocc(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace) {
+	
+	AmbientOcclusionBlock* ambocc = dynamic_cast<AmbientOcclusionBlock*>(getGIPtr());
+	
+	if (ambocc) {
+		ambocc->bright = bright;
+		ambocc->dark = dark;
+		ambocc->samples = samples;
+		ambocc->maxdist = maxdist;
+		ambocc->colorSpace = colorSpace;
+	} else {
+		blocks.push_back(new AmbientOcclusionBlock(bright, dark, samples, maxdist, colorSpace));
+	}
 }
 
 void SFRenderer::setPointLight(const vec3f _position, const Color _color, const float _power, const string _colorSpace) {

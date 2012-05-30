@@ -13,10 +13,18 @@
 #include <sstream>
 
 sf::GLRenderer glRenderer;
-sf::SFRenderer sfRenderer(glRenderer);
+sf::SFRenderer sfRenderer;
 vector<sf::vec3f> vertices;
 
 int _frameRate = FRAME_RATE;
+
+int sf::getWindowWidth() {
+	return glRenderer.getWindowWidth();
+}
+
+int sf::getWindowHeight() {
+	return glRenderer.getWindowHeight();
+}
 
 void sf::setWindowSize(int width, int height) {
 	IMPL
@@ -33,6 +41,10 @@ int sf::frameRate() {
 void sf::_clear() {
 	glRenderer.clear();
 	sfRenderer.clear();
+}
+
+void sf::setSize(int width, int height) {
+	sfRenderer.setImageResolution(width, height);
 }
 
 void sf::noSmooth() {
@@ -52,8 +64,16 @@ void sf::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f
 	sfRenderer.setupScreenPerspective(eye, target, up, fov, aspect);
 }
 
-void sf::setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace) {
-	sfRenderer.setAmbientOcclusion(bright, dark, samples, maxdist, colorSpace);
+void sf::setAmboccBright(const Color bright) {
+	sfRenderer.setAmboccBright(bright);
+}
+
+void sf::setAmboccDark(const Color dark) {
+	sfRenderer.setAmboccDark(dark);
+}
+
+void sf::setAmbocc(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace) {
+	sfRenderer.setAmbocc(bright, dark, samples, maxdist, colorSpace);
 }
 
 void sf::setColor(float r, float g, float b, float a) {

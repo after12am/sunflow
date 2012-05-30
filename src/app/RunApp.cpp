@@ -91,6 +91,9 @@ void RunApp::mousePressed(int button, int state, int x, int y){
 //--------------------------------------------------------------
 void RunApp::windowResized(int w, int h){
 	
+	// resize image resolution of sunflow renderer
+	setSize(w, h);
+	
 	BaseApp::Camera camera = RunApp::app->camera;
 	
 	float dist = h  * 0.5f / tan(ofDegToRad(camera.fovy * 0.5f));

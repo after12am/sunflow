@@ -28,17 +28,8 @@ namespace sf {
 		
 	protected:
 		
-		GLRenderer glRenderer;
-		
 		BufferStream bufferStream;
-		
 		vector<BaseBlock*> blocks;
-		
-		// return pointer by name
-		BaseBlock* getPtr(string name);
-		
-		// return block unique id
-		string bid();
 		
 		// flush sc file
 		void flush(const string type);
@@ -54,14 +45,13 @@ namespace sf {
 		
 		ShaderBlock* currShader;
 		
-		SFRenderer(GLRenderer& _glRenderer) {
+		SFRenderer() {
 			
 			// setup command option
 			commandOption.nogui = false;
 			commandOption.ipr = true;
 			commandOption.output = "";
 			
-			glRenderer = _glRenderer;
 			currShader = 0;
 			blocks.push_back(new ImageBlock());
 		}
@@ -73,14 +63,21 @@ namespace sf {
 			}
 		}
 		
+		string bid();
 		string filePath();
+		
+		BaseBlock* getPtr(string name);
 		ImageBlock* getImagePtr();
 		CameraBlock* getCameraPtr();
+		GIBlock* getGIPtr();
 		vector<ShaderBlock*> getShaders();
 		
 		void smooth(const int min, const int max);
 		void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect);
-		void setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace);
+		void setImageResolution(int width, int height);
+		void setAmboccBright(const Color bright);
+		void setAmboccDark(const Color dark);
+		void setAmbocc(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace);
 		void setPointLight(const vec3f _position, const Color _color, const float _power, const string _colorSpace);
 		void setColor(const float r, const float g, const float b, const float a);
 		

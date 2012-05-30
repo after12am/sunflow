@@ -7,7 +7,7 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 	
-	sf::setAmbientOcclusion(sf::Color(1.f, 1.f, 1.f), sf::Color(0.f, 0.f, 0.f), 32, 3.0, sf::COLORSPACE_SRGB_LINEAR);
+	sf::setAmbocc(sf::Color(1.f, 1.f, 1.f), sf::Color(0.f, 0.f, 0.f), 32, 3.0, sf::COLORSPACE_SRGB_LINEAR);
 }
 
 //--------------------------------------------------------------

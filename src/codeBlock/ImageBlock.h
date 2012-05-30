@@ -80,8 +80,7 @@ namespace sf {
 		string filter;
 		
 		
-		ImageBlock()
-		{
+		ImageBlock() {
 			type = "image";
 			name = "image";
 			aaMin = 0;
@@ -93,8 +92,7 @@ namespace sf {
 			jitter = false;
 		}
 		
-		void flush(BufferStream& stream)
-		{
+		void flush(BufferStream& stream) {
 			stream.push("image");
 			stream.write("resolution", resolution.x, resolution.y);
 			stream.write("aa", aaMin, aaMax);

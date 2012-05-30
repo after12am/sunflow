@@ -67,7 +67,8 @@ namespace sf {
 //	const char MODIFIER_NORMAL_MAP[32] = "normal_map";
 //	const char MODIFIER_PERLIN_MAP[32] = "perlin";
 	
-	
+	int getWindowWidth();
+	int getWindowHeight();
 	void setWindowSize(int width, int height);
 	void setFrameRate(int i);
 	int frameRate();
@@ -75,6 +76,8 @@ namespace sf {
 	// We have to call every frame.
 	// If you are a user, dont worry about this. This clear method is calling at background every RunApp::draw(). 
 	void _clear();
+	
+	void setSize(int width, int height);
 	
 	// --------------------------------------------
 	//   ANTI-ALIASING GUIDE
@@ -101,7 +104,9 @@ namespace sf {
 	// -------------------------------------------------------------------------
 	//   AMBIENT OCCLUSION
 	// -------------------------------------------------------------------------
-	void setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace);
+	void setAmboccBright(const Color bright);
+	void setAmboccDark(const Color dark);
+	void setAmbocc(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace);
 	
 	// set color with r, g, b, a from 0 to 1.
 	void setColor(float r, float g, float b, float a = 1.f);

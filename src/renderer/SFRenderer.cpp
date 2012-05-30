@@ -57,7 +57,6 @@ string SFRenderer::bid() {
 void SFRenderer::flush(const string type) {
 	
 	for (int i = 0; i < blocks.size(); i++) {
-		
 		if (blocks[i]->type == type) {
 			blocks[i]->flush(bufferStream);
 		}

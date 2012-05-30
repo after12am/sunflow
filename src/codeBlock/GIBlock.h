@@ -38,7 +38,6 @@ namespace sf {
 		string colorSpace;
 		
 		AmbientOcclusionBlock(Color _bright, Color _dark, int _samples, float _maxdist, string _colorSpace) {
-			
 			bright = _bright;
 			dark = _dark;
 			samples = _samples;

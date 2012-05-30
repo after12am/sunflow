@@ -31,10 +31,27 @@ void GLRenderer::setup() {
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, color);
 	
-	// setup glCallList
+	// setup call list for performance
+	glNewList(1, GL_COMPILE);
+	glutSolidSphere(1, 40, 40);
+	glEndList();
+	glNewList(2, GL_COMPILE);
+	glutSolidCube(1);
+	glEndList();
+	glNewList(3, GL_COMPILE);
+	glBegin(GL_QUADS);
+	glVertex3f(-.5f, 0, -.5f);
+	glVertex3f( .5f, 0, -.5f);
+	glVertex3f( .5f, 0,  .5f);
+	glVertex3f(-.5f, 0,  .5f);
+	glEnd();
+	glEndList();
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_ALPHA_TEST);
+	
+	// enable front and back
+	glDisable(GL_CULL_FACE);
 }
 
 void GLRenderer::clear() {
@@ -75,22 +92,36 @@ void GLRenderer::scale(float scaleX, float scaleY, float scaleZ) {
 	glScalef(scaleX, scaleY, scaleZ);
 }
 
+void GLRenderer::begin() {
+	glBegin(GL_QUADS);
+}
+
+void GLRenderer::vertex(float x, float y, float z) {
+	glVertex3f(x, y, z);
+}
+
+void GLRenderer::end() {
+	glEnd();
+}
+
+void GLRenderer::sphere(float sizeX, float sizeY, float sizeZ) {
+	glPushMatrix();
+	glScalef(sizeX, sizeY, sizeZ);
+	glCallList(1);
+	glPopMatrix();
+}
+
 void GLRenderer::box(float sizeX, float sizeY, float sizeZ) {
 	// switch to glCallList
 	glPushMatrix();
 	glScalef(sizeX, sizeY, sizeZ);
-	glutSolidCube(1);
+	glCallList(2);
 	glPopMatrix();
 }
 
 void GLRenderer::floor() {
 	glPushMatrix();
 	glScalef(10000, 1, 10000);
-	glBegin(GL_QUADS);
-	glVertex3f(-.5f, 0, -.5f);
-	glVertex3f( .5f, 0, -.5f);
-	glVertex3f( .5f, 0,  .5f);
-	glVertex3f(-.5f, 0,  .5f);
-	glEnd();
+	glCallList(3);
 	glPopMatrix();
 }

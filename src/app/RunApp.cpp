@@ -54,7 +54,7 @@ void RunApp::update(){
 void RunApp::draw(){
 	
 	// cleanup sunflow renderer buffer and etc...
-	clear();
+	_clear();
 	
 	// call for processing testApp::update()
 	update();
@@ -64,8 +64,6 @@ void RunApp::draw(){
 	RunApp::app->draw();
 	glPopMatrix();
 	glutSwapBuffers();
-	
-	//cout << RunApp::tb.rotate()[0] << endl;
 }
 
 //--------------------------------------------------------------
@@ -114,5 +112,5 @@ void RunApp::windowResized(int w, int h){
 void RunApp::timer(int value) {
 	update();
 	glutPostRedisplay();
-	glutTimerFunc(1000 / getFrameRate(), timer, 0);
+	glutTimerFunc(1000 / frameRate(), timer, 0);
 }

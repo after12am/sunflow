@@ -41,13 +41,25 @@ namespace sf {
 		string bid();
 		
 		// flush sc file
+		void flush(const string type);
 		int flush();
 		
 	public:
 		
+		struct CommandOption {
+			bool nogui;
+			bool ipr;
+			string output;
+		} commandOption;
+		
 		ShaderBlock* currShader;
 		
 		SFRenderer(GLRenderer& _glRenderer) {
+			
+			// setup command option
+			commandOption.nogui = false;
+			commandOption.ipr = true;
+			commandOption.output = "";
 			
 			glRenderer = _glRenderer;
 			currShader = 0;
@@ -61,20 +73,20 @@ namespace sf {
 			}
 		}
 		
-		// return sc file path
 		string filePath();
-		
 		ImageBlock* getImagePtr();
 		CameraBlock* getCameraPtr();
 		vector<ShaderBlock*> getShaders();
 		
-		void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far);
-		
+		void smooth(const int min, const int max);
+		void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect);
 		void setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace);
 		void setPointLight(const vec3f _position, const Color _color, const float _power, const string _colorSpace);
 		void setColor(const float r, const float g, const float b, const float a);
 		
+		void sphere();
 		void box();
+		void quads(vector<vec3f> vertices);
 		void floor();
 		
 		void clear();

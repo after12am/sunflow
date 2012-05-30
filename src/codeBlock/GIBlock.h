@@ -27,7 +27,7 @@ namespace sf {
 
 namespace sf {
 	
-	class AmbientOcclusion : public GIBlock {
+	class AmbientOcclusionBlock : public GIBlock {
 		
 	public:
 		
@@ -37,7 +37,7 @@ namespace sf {
 		float maxdist;
 		string colorSpace;
 		
-		AmbientOcclusion(Color _bright, Color _dark, int _samples, float _maxdist, string _colorSpace) {
+		AmbientOcclusionBlock(Color _bright, Color _dark, int _samples, float _maxdist, string _colorSpace) {
 			
 			bright = _bright;
 			dark = _dark;

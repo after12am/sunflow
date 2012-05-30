@@ -14,29 +14,42 @@
 
 sf::GLRenderer glRenderer;
 sf::SFRenderer sfRenderer(glRenderer);
+vector<sf::vec3f> vertices;
 
-int frameRate = DEFAULT_FRAME_RATE;
+int _frameRate = FRAME_RATE;
 
 void sf::setWindowSize(int width, int height) {
 	IMPL
 }
 
-void sf::setFrameRate(int _frameRate) {
-	frameRate = _frameRate;
+void sf::setFrameRate(int i) {
+	_frameRate = i;
 }
 
-int sf::getFrameRate() {
-	return frameRate;
+int sf::frameRate() {
+	return _frameRate;
 }
 
-void sf::clear() {
+void sf::_clear() {
 	glRenderer.clear();
 	sfRenderer.clear();
 }
 
+void sf::noSmooth() {
+	sfRenderer.smooth(0, 0);
+}
+
+void sf::smooth() {
+	sfRenderer.smooth(1, 2);
+}
+
+void sf::smooth(const int min, const int max) {
+	sfRenderer.smooth(min, max);
+}
+
 void sf::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far) {
 	glRenderer.setupScreenPerspective(eye, target, up, fov, aspect, near, far);
-	sfRenderer.setupScreenPerspective(eye, target, up, fov, aspect, near, far);
+	sfRenderer.setupScreenPerspective(eye, target, up, fov, aspect);
 }
 
 void sf::setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace) {
@@ -68,6 +81,32 @@ void sf::scale(float scaleX, float scaleY, float scaleZ) {
 	glRenderer.scale(scaleX, scaleY, scaleZ);
 }
 
+void sf::begin() {
+	glRenderer.begin();
+	vertices.clear();
+}
+
+void sf::vertex(float x, float y, float z) {
+	glRenderer.vertex(x, y, z);
+	vertices.push_back(sf::vec3f(x, y, z));
+}
+
+void sf::end() {
+	glRenderer.end();
+	sfRenderer.quads(vertices);
+}
+
+void sf::sphere(float size)
+{
+	sphere(size, size, size);
+}
+
+void sf::sphere(float sizeX, float sizeY, float sizeZ)
+{
+	glRenderer.sphere(sizeX, sizeY, sizeZ);
+	sfRenderer.sphere();
+}
+
 void sf::box(float size) {
 	sf::box(size, size, size);
 }
@@ -82,52 +121,13 @@ void sf::floor() {
 	sfRenderer.floor();
 }
 
-
-
-/* render
- =================*/
-
-// SFRendererにうつす
-// prototype statement
-void command(string command);
-void command(string filePath, string output, bool nogui, bool ipr);
-
-void command(string command)
-{
-#ifdef DEBUG
-	cout << "[INFO] command execute " << command.c_str() << endl;
-#endif
-	
-	if (system(command.c_str()) != 0)
-	{
-		cout << "[ERROR] command error" << endl;
-	}
+void sf::quickRender(const bool nogui, const string output) {
+	render(nogui, true, output);
 }
 
-void command(string filePath, string output, bool nogui, bool ipr)
-{
-	stringstream cmd;
-	stringstream options;
-	
-	if (output != "") options << " -o " << output << " ";
-	if (nogui) options << " -nogui ";
-	if (ipr) options << " -ipr ";
-	
-	string optstr = options.str().c_str();
-	
-	cmd << "cd ../../../lib; ./sunflow " << optstr << filePath;
-	
-	command(cmd.str());
-}
-
-void sf::quickRender()
-{
+void sf::render(const bool nogui, const bool ipr, const string output) {
+	sfRenderer.commandOption.nogui = nogui;
+	sfRenderer.commandOption.ipr = ipr;
+	sfRenderer.commandOption.output = output;
 	sfRenderer.render();
-	command(sfRenderer.filePath(), "", false, true);
-}
-
-void sf::render(const string output, const bool nogui, const bool ipr)
-{
-	sfRenderer.render();
-	command(sfRenderer.filePath(), output, nogui, ipr);
 }

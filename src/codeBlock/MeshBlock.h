@@ -16,7 +16,7 @@
 
 namespace sf {
 	
-	class Mesh : public BaseBlock {
+	class MeshBlock : public BaseBlock {
 		
 	public:
 		
@@ -24,35 +24,30 @@ namespace sf {
 		vector<vec3f> indices;
 		vector<vec3f> norms;
 		string shader;
-		
 		matrix4x4 m;
 		
-		
-		Mesh() {
-			type = "mesh";
-			name = "mesh";
+		MeshBlock() {
+			type = "generic-mesh";
+			name = "generic-mesh";
 			shader = SHADER_NONE;
 			m.makeScaleMatrix(0.001, 0.001, 0.001);
 		}
-		
-		//virtual void flush(BufferStream& stream) = 0;
 	};
 }
 
 
-
 namespace sf {
 	
-	class BoxScheme : public Mesh {
+	class BoxObjectBlock : public MeshBlock {
 		
 	public:
 		
-		BoxScheme() {
+		BoxObjectBlock() {
 			type = "generic-mesh";
 			name = "\"Box\"";
 		}
 		
-		~BoxScheme() {
+		~BoxObjectBlock() {
 			
 		}
 		
@@ -126,25 +121,24 @@ namespace sf {
 }
 
 
-
 namespace sf {
 	
-	class Box : public Mesh {
+	class BoxInstanceBlock : public MeshBlock {
+		
+	protected:
+		
+		string geometry;
 		
 	public:
 		
-		vector<vec3f> vertices;
-		vector<vec3f> indices;
-		vector<vec3f> norms;
-		string geometry;
-		
-		Box() {
+		BoxInstanceBlock() {
+			type = "instance";
 			name = "\"Box\"";
 			geometry = "\"Box\"";
 			m.makeScaleMatrix(1, 1, 1);
 		}
 		
-		~Box() {
+		~BoxInstanceBlock() {
 			
 		}
 		
@@ -168,15 +162,19 @@ namespace sf {
 
 namespace sf {
 	
-	class Plane : public Mesh {
+	class PlaneObjectBlock : public MeshBlock {
 		
 	public:
 		
 		vec3f p;
 		vec3f n;
 		
-		Plane() {
-			name = "plane";
+		PlaneObjectBlock() {
+			type = "object";
+		}
+		
+		~PlaneObjectBlock() {
+			
 		}
 		
 		void flush(BufferStream& stream)
@@ -192,6 +190,84 @@ namespace sf {
 			stream.write("type", "plane");
 			stream.write("p", p.x, p.y, p.z);
 			stream.write("n", n.x, n.y, n.z);
+			stream.pop();
+		}
+	};
+}
+
+
+namespace sf {
+	
+	class SphereObjectBlock : public MeshBlock {
+		
+	public:
+		
+		SphereObjectBlock() {
+			type = "object";
+			name = "sphere";
+			m.makeScaleMatrix(1, 1, 1);
+		}
+		
+		void flush(BufferStream& stream) {
+			
+			stream.push("object");
+			stream.write("shader", shader);
+			stream.write("transform col");
+			
+			for (int i = 0; i < 16; i = i + 4) {
+				stream.write("", m.getPtr()[i], m.getPtr()[i + 1], m.getPtr()[i + 2], m.getPtr()[i + 3]);
+			}
+			
+			stream.write("type", "sphere");
+			stream.write("name", name);
+			stream.pop();
+		}
+	};
+}
+
+
+namespace sf {
+	
+	class QuadsObjectBlock : public MeshBlock {
+		
+	public:
+		
+		QuadsObjectBlock() {
+			name = "\"Quads\"";
+			type = "generic-mesh";
+			m.makeScaleMatrix(1, 1, 1);
+		}
+		
+		~QuadsObjectBlock() {
+			
+		}
+		
+		void flush(BufferStream& stream) {
+			
+			stream.push("object");
+			stream.write("shader", shader);
+			stream.write("transform col");
+			
+			for (int i = 0; i < 16; i = i + 4) {
+				stream.write("", m.getPtr()[i], m.getPtr()[i + 1], m.getPtr()[i + 2], m.getPtr()[i + 3]);
+			}
+			
+			stream.write("type", type);
+			stream.write("name", "\"Quads\"");
+			stream.write("points", int(vertices.size()));
+			
+			for (int i = 0; i < vertices.size(); i++) {
+				stream.write("", vertices[i].x, vertices[i].y, vertices[i].z);
+			}
+			
+			stream.write("triangles", int(vertices.size() - 2));
+			
+			for (int i = 1; i < vertices.size() - 1; i++) {
+				stream.write("", 0, i, i + 1);
+			}
+			
+			stream.write("normals", "none");
+			stream.write("uvs", "none");
 			stream.pop();
 		}
 	};

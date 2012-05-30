@@ -69,48 +69,106 @@ namespace sf {
 	
 	
 	void setWindowSize(int width, int height);
-	void setFrameRate(int frameRate);
-	int getFrameRate();
+	void setFrameRate(int i);
+	int frameRate();
 	
-	// we have to call every frame.
-	void clear();
+	// We have to call every frame.
+	// If you are a user, dont worry about this. This clear method is calling at background every RunApp::draw(). 
+	void _clear();
 	
+	// --------------------------------------------
+	//   ANTI-ALIASING GUIDE
+	// --------------------------------------------
+	// - noSmooth is no anti-aliasing
+	// - smooth is final rendering
+	// 
+	//   no anti-aliasing:                     0 0
+	//   quick undersampled preview:          -2 0
+	//   preview with some edge refinement:    0 1
+	//   final rendering:                      1 2
+	// --------------------------------------------
+	void noSmooth();
+	void smooth();
+	void smooth(const int min, const int max);
 	
-	// camera setting
+	// -------------------------------------------------------------------------
+	//   CAMERA GUIDE
+	// -------------------------------------------------------------------------
+	//   only perspective camera is available now
+	// -------------------------------------------------------------------------
 	void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far);
 	
+	// -------------------------------------------------------------------------
+	//   AMBIENT OCCLUSION
+	// -------------------------------------------------------------------------
 	void setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace);
 	
 	// set color with r, g, b, a from 0 to 1.
 	void setColor(float r, float g, float b, float a = 1.f);
 	
+	// -------------------------------------------------------------------------
+	//   TRANSFORMATION
+	// -------------------------------------------------------------------------
 	void pushMatrix();
 	void popMatrix();
 	void translate(float x, float y, float z);
 	void rotate(float angle, float axisX, float axisY, float axisZ);
 	void scale(float scaleX, float scaleY, float scaleZ);
 	
+	// -------------------------------------------------------------------------
+	//   VERTEX GUIDE
+	// -------------------------------------------------------------------------
+	// 
+	// sf::begin("shader name");
+	// sf::vertex( 2,  2, 0);
+	// sf::vertex( 2, -2, 0);
+	// sf::vertex(-2, -2, 0);
+	// sf::vertex(-2,  2, 0);
+	// sf::end();
+	// 
+	// 
+	//  (-2,  2, 0) ----------- ( 2,  2, 0);
+	//             |           |
+	//             |           |
+	//             |           |
+	//             |           |
+	//             |           |
+	//  (-2, -2, 0) ----------- ( 2, -2, 0);
+	// 
+	// -------------------------------------------------------------------------
+	void begin();
+	void vertex(float x, float y, float z);
+	void end();
+	
+	// -------------------------------------------------------------------------
+	//   PROVIDED PRIMITIVE
+	// -------------------------------------------------------------------------
+	void sphere(float size = 1.f);
+	void sphere(float sizeX, float sizeY, float sizeZ);
 	void box(float size = 1.f);
 	void box(float sizeX, float sizeY, float sizeZ);
 	
-	// ------------------------------------------------------
+	// -------------------------------------------------------------------------
 	//   FLOOR PRIMITIVE GUIDE
-	// ------------------------------------------------------
+	// -------------------------------------------------------------------------
 	// - infinite plane
 	//   
 	//   center point p(0, 0, 0)
 	//   normal       n(0, 1, 0)
-	// ------------------------------------------------------
+	// -------------------------------------------------------------------------
 	void floor();
 	
-	
-	// for getting quick preview method
-	void quickRender();
-	void quickRender(const string output, const bool nogui);
-	
-	// if you change ipr from true to false, you would get better result.
-	// but it need too much time.
-	void render(const string output, const bool nogui, const bool ipr);
+	// -------------------------------------------------------------------------
+	//   RENDER GUIDE
+	// -------------------------------------------------------------------------
+	// - quickRender is for quick preview
+	// - render is customizable with render option
+	//   
+	//   if you change ipr to false, you would get better result 
+	//   at the expense of too much time.
+	// -------------------------------------------------------------------------
+	void quickRender(const bool nogui = false, const string output = "");
+	void render(const bool nogui = false, const bool ipr = false, const string output = "");
 }
 
 #endif

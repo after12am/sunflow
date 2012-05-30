@@ -42,7 +42,10 @@ namespace sf {
 		void rotate(float angle, float axisX, float axisY, float axisZ);
 		void scale(float scaleX, float scaleY, float scaleZ);
 		
-		// draw box
+		void begin();
+		void vertex(float x, float y, float z);
+		void end();
+		void sphere(float sizeX, float sizeY, float sizeZ);
 		void box(float sizeX, float sizeY, float sizeZ);
 		void floor();
 	};

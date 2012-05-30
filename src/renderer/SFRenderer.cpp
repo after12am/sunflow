@@ -16,55 +16,34 @@ using namespace sf;
 
 string SFRenderer::bid() {
 	stringstream ss;
+	// 'b' means 'block'
 	ss << "b" << (blocks.size() + 1);
 	return ss.str();
 }
 
-// if has error, return value( > 0).
-// if has no error, return 0.
+void SFRenderer::flush(const string type) {
+	
+	for (int i = 0; i < blocks.size(); i++) {
+		
+		if (blocks[i]->type == type) {
+			blocks[i]->flush(bufferStream);
+		}
+	}
+}
+
 int SFRenderer::flush() {
 	
-	// attension: reduce process of flush
+	flush("image");
+	flush("camera");
+	flush("gi");
+	flush("shader");
 	
-	string ss;
-	
-	ImageBlock* image = getImagePtr();
-	
-	image->flush(bufferStream);
-	
-	CameraBlock* camera = getCameraPtr();
-	camera->flush(bufferStream);
-	
-	ss = "gi";
-	for (int i = 0; i < blocks.size(); i++) {
-		if (blocks[i]->type == ss) {
-			blocks[i]->flush(bufferStream);
-		}
-	}
-	
-	ss = "shader";
-	for (int i = 0; i < blocks.size(); i++) {
-		if (blocks[i]->type == ss) {
-			blocks[i]->flush(bufferStream);
-		}
-	}
-	
-	// flush box scheme
-	BoxScheme boxScheme;
+	BoxObjectBlock boxScheme;
 	boxScheme.flush(bufferStream);
 	
-	// flush objects
-	ss = "mesh";
-	for (int i = 0; i < blocks.size(); i++) {
-		if (blocks[i]->type == ss) {
-			blocks[i]->flush(bufferStream);
-		}
-	}
-	
-//	if (camera > 0) camera->flush(fstream);
-//	if (gi > 0) gi->flush(fstream);
-//	
-//	for (int i = 0; i < objects.size(); i++) if (objects[i] > 0) objects[i]->flush(fstream);
+	flush("generic-mesh");
+	flush("object");
+	flush("instance");
 	
 #ifdef DEBUG
 	bufferStream.dump();
@@ -76,11 +55,11 @@ int SFRenderer::flush() {
 
 void SFRenderer::clear() {
 	
-	string deleteList[] = {"mesh", "light", "shader"};
+	string deleteList[] = {"generic-mesh", "object", "instance", "light", "shader"};
 	vector<BaseBlock*> _blocks;
 	
-	for (int i = 0; i < blocks.size(); i++)
-	{
+	for (int i = 0; i < blocks.size(); i++) {
+		
 		bool nodelete = true;
 		
 		for (int j = 0; j < sizeof(deleteList) / sizeof(string); j++) {
@@ -100,6 +79,7 @@ void SFRenderer::clear() {
 	blocks.swap(_blocks);
 }
 
+
 void SFRenderer::render() {
 	
 	ImageBlock* image = getImagePtr();
@@ -107,6 +87,43 @@ void SFRenderer::render() {
 	
 	// save output.sc
 	flush();
+	
+	// execute render command
+	stringstream options;
+	
+	if (commandOption.output != "") {
+		options << " -o " << commandOption.output << " ";
+	}
+	
+	if (commandOption.nogui) {
+		options << " -nogui ";
+	}
+	
+	if (commandOption.ipr) {
+		options << " -ipr ";
+	}
+	
+	stringstream ss;
+	ss << "cd " << SUNFLOW_FILE_PATH << ";";
+	ss << "./" << SUNFLOW_COMMAND;
+	ss << options.str();
+	ss << filePath();
+	
+#ifdef DEBUG
+	cout << "[INFO] execute " << ss.str() << endl;
+#endif
+	
+	string command = ss.str();
+	
+	if (system(command.c_str()) != 0) {
+		cout << "[ERROR] sunflow render command error has occured." << endl;
+	}
+}
+
+void SFRenderer::smooth(const int min, const int max) {
+	ImageBlock* image = getImagePtr();
+	image->aaMin = min;
+	image->aaMax = max;
 }
 
 BaseBlock* SFRenderer::getPtr(string type) {
@@ -148,16 +165,29 @@ string SFRenderer::filePath() {
 	return bufferStream.getPath();
 }
 
-void SFRenderer::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far) {
-	blocks.push_back(new PinholeCameraBlock(eye, target, up, fov, aspect));
+void SFRenderer::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect) {
+	
+	PinholeCameraBlock* camera = dynamic_cast<PinholeCameraBlock*>(getCameraPtr());
+	
+	if (camera) {
+		camera->eye = eye;
+		camera->target = target;
+		camera->up = up;
+		camera->fov = fov;
+		camera->aspect = aspect;
+	} else {
+		blocks.push_back(new PinholeCameraBlock(eye, target, up, fov, aspect));
+	}
 }
 
 void SFRenderer::setAmbientOcclusion(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace) {
-	blocks.push_back(new AmbientOcclusion(bright, dark, samples, maxdist, colorSpace));
+	// no good cording
+	// ambcc block has to be only one block in the stack
+	blocks.push_back(new AmbientOcclusionBlock(bright, dark, samples, maxdist, colorSpace));
 }
 
 void SFRenderer::setPointLight(const vec3f _position, const Color _color, const float _power, const string _colorSpace) {
-	blocks.push_back(new PointLight(_position, _color, _power, _colorSpace));
+	blocks.push_back(new PointLightBlock(_position, _color, _power, _colorSpace));
 }
 
 void SFRenderer::setColor(const float r, const float g, const float b, const float a) {
@@ -182,12 +212,28 @@ void SFRenderer::setColor(const float r, const float g, const float b, const flo
 	currShader = dynamic_cast<ShaderBlock*>(shader);
 }
 
+void SFRenderer::sphere() {
+	
+	matrix4x4 m;
+	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
+	
+	SphereObjectBlock* sphere = new SphereObjectBlock();
+	sphere->name = bid();
+	sphere->m = m;
+	
+	if (currShader) {
+		sphere->shader = currShader->name;
+	}
+	
+	blocks.push_back(sphere);
+}
+
 void SFRenderer::box() {
 	
 	matrix4x4 m;
 	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
 	
-	Box* box = new Box();
+	BoxInstanceBlock* box = new BoxInstanceBlock();
 	box->name = bid();
 	box->m = m;
 	
@@ -198,13 +244,30 @@ void SFRenderer::box() {
 	blocks.push_back(box);
 }
 
+void SFRenderer::quads(vector<vec3f> vertices) {
+	
+	matrix4x4 m;
+	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
+	
+	QuadsObjectBlock* quads = new QuadsObjectBlock();
+	quads->name = bid();
+	quads->vertices = vertices;
+	quads->m = m;
+	
+	if (currShader) {
+		quads->shader = currShader->name;
+	}
+	
+	blocks.push_back(quads);
+}
+
 void SFRenderer::floor() {
 	
 	matrix4x4 m;
 	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
 	
 	// name value have to be unique if using instance
-	Plane* plane = new Plane();
+	PlaneObjectBlock* plane = new PlaneObjectBlock();
 	plane->name = bid();
 	plane->m = m;
 	plane->p = vec3f(0, 0, 0);

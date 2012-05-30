@@ -101,6 +101,7 @@ void RunApp::windowResized(int w, int h){
 	
 	float dist = h  * 0.5f / tan(ofDegToRad(camera.fovy * 0.5f));
 	float aspect = (float)w / h;
+	float z = dist / camera.scale;
 	
 	RunApp::tb.resize(w, h);
 	
@@ -109,7 +110,7 @@ void RunApp::windowResized(int w, int h){
 	
 	// As we use perspective camera as default, 
 	// mesh size is constant even if window is resized.
-	setupScreenPerspective(vec3f(16, 4, dist / camera.scale), vec3f(0, 0, 0), vec3f(0, 1, 0), 30, aspect, camera.near, camera.far);
+	setupScreenPerspective(vec3f(0, 4, z), vec3f(0, 0, 0), vec3f(0, 1, 0), 30, aspect, camera.near, camera.far);
 	
 	RunApp::app->windowResized(w, h);
 }

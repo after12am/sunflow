@@ -57,7 +57,7 @@ namespace sf {
 			
 			option.nogui = false;
 			option.ipr = true;
-			option.output = "";
+			option.output = getBinDir() + "/image.jpeg ";
 		}
 		
 		~SFRenderer();

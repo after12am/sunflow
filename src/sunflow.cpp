@@ -47,6 +47,10 @@ void sf::setSize(int width, int height) {
 	sfRenderer.setImageResolution(width, height);
 }
 
+void sf::setFilter(string filter) {
+	sfRenderer.setFilter(filter);
+}
+
 void sf::noSmooth() {
 	sfRenderer.smooth(0, 0);
 }

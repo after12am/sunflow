@@ -78,6 +78,7 @@ namespace sf {
 	void _clear();
 	
 	void setSize(int width, int height);
+	void setFilter(string filter);
 	
 	// --------------------------------------------
 	//   ANTI-ALIASING GUIDE

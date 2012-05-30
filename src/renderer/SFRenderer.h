@@ -76,6 +76,7 @@ namespace sf {
 		void smooth(const int min, const int max);
 		void setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect);
 		void setImageResolution(int width, int height);
+		void setFilter(string filter);
 		void setAmboccBright(const Color bright);
 		void setAmboccDark(const Color dark);
 		void setAmbocc(const Color bright, const Color dark, const int samples, const float maxdist, const string colorSpace);

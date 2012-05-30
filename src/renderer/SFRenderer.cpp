@@ -195,6 +195,11 @@ void SFRenderer::setImageResolution(int width, int height) {
 	image->resolution = vec2f(width, height);
 }
 
+void SFRenderer::setFilter(string filter) {
+	ImageBlock* image = getImagePtr();
+	image->filter = filter;
+}
+
 void SFRenderer::setAmboccBright(const Color bright) {
 	
 	AmbientOcclusionBlock* ambocc = dynamic_cast<AmbientOcclusionBlock*>(getGIPtr());

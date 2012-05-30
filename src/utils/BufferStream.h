@@ -11,6 +11,7 @@
 
 #include <sstream>
 #include <iostream.h>
+#include "Constants.h"
 
 namespace sf {
 	
@@ -38,7 +39,7 @@ namespace sf {
 			char buf[1024];
 			getcwd(buf, sizeof(buf));
 			std::string ss = buf;
-			setPath(ss + "/output.sc");
+			setPath(ss + '/' + SUNFLOW_SC);
 		}
 		
 		~BufferStream()

@@ -34,7 +34,7 @@ void BufferStream::save()
 	fputs(osstream.str().c_str(), fp);
 	fclose(fp);
 	
-	cout << "[INFO] save sc file" << endl;
+	cout << "[INFO] save " << SUNFLOW_SC << endl;
 	
 	// clear buffer
 	osstream.str("");

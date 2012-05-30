@@ -38,6 +38,9 @@ void RunApp::setup() {
 	// setup openGL 
 	GLRenderer::setup();
 	
+	// setup global illumination
+	setAmbocc(Color(1.f, 1.f, 1.f), Color(0.f, 0.f, 0.f), 32, 3.0, COLORSPACE_SRGB_LINEAR);
+	
 	// process user setup function
 	RunApp::app->setup();
 	

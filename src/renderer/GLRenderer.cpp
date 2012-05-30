@@ -106,7 +106,7 @@ void GLRenderer::end() {
 
 void GLRenderer::sphere(float sizeX, float sizeY, float sizeZ) {
 	glPushMatrix();
-	glScalef(sizeX, sizeY, sizeZ);
+	glScalef(sizeX * .5f, sizeY * .5f, sizeZ * .5f);
 	glCallList(1);
 	glPopMatrix();
 }

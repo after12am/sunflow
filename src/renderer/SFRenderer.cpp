@@ -249,7 +249,10 @@ void SFRenderer::setColor(const float r, const float g, const float b, const flo
 void SFRenderer::sphere() {
 	
 	matrix4x4 m;
+	glPushMatrix();
+	glScalef(.5f, .5f, .5f);
 	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
+	glPopMatrix();
 	
 	SphereObjectBlock* sphere = new SphereObjectBlock();
 	sphere->name = bid();

@@ -20,6 +20,7 @@ namespace sf {
 	private:
 		
 		std::ostringstream osstream;
+		std::string filePath;
 		
 		int depth;
 		
@@ -29,8 +30,6 @@ namespace sf {
 		float omit(float v);
 		
 	public:
-		
-		std::string filePath;
 		
 		BufferStream()
 		{

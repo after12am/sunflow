@@ -4,7 +4,7 @@
 
 #include "sunflow.h"
 
-class testApp {
+class testApp : public sf::BaseApp {
 	
 public:
 	void setup();

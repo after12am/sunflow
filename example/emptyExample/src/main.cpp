@@ -8,7 +8,7 @@
 
 #include <iostream.h>
 #include <GLUT/GLUT.h>
-#include "RunApp.h"
+#include "sunflow.h"
 #include "testApp.h"
 
 
@@ -20,6 +20,6 @@ int main (int argc, char * argv[])
 	glutInitWindowSize(1024, 768);
 	glutCreateWindow("emptyExample");
 	
-	RunApp(new testApp());
-    return 0;
+	sf::RunApp(new testApp());
+	return 0;
 }

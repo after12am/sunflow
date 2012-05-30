@@ -1,5 +1,6 @@
 
 #include "testApp.h"
+#include <GLUT/GLUT.h>
 #include <iostream.h>
 
 

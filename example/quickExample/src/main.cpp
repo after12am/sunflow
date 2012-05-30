@@ -22,5 +22,5 @@ int main (int argc, char * argv[])
 	glutCreateWindow("emptyExample");
 	
 	sf::RunApp(new testApp());
-    return 0;
+	return 0;
 }

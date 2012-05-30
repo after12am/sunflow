@@ -24,13 +24,6 @@ void testApp::draw(){
 	sf::box(1);
 	sf::popMatrix();
 	
-	// sphere test
-	sf::pushMatrix();
-	sf::translate(0, .5f, 3);
-	sf::setColor(.8f, 0, .8f);
-	sf::sphere(1);
-	sf::popMatrix();
-	
 	// quads test
 	sf::setColor(0, .8f, .8f);
 	sf::scale(4, 4, 4);

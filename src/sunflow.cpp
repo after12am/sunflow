@@ -159,6 +159,10 @@ void sf::quickRender(const bool nogui, const string output) {
 void sf::render(const bool nogui, const bool ipr, const string output) {
 	sfRenderer.option.nogui = nogui;
 	sfRenderer.option.ipr = ipr;
-	sfRenderer.option.output = output;
+	
+	if (output != "") {
+		sfRenderer.option.output = output;
+	}
+	
 	sfRenderer.render();
 }

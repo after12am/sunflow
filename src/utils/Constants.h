@@ -1,9 +1,9 @@
 //
 //  Constants.h
-//  quickExample
+//  sunflow
 //
 //  Created by Okami Satoshi on 12/04/28.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Okami Satoshi. All rights reserved.
 //
 
 #ifndef _Constants_h

@@ -1,3 +1,10 @@
+//
+//  BufferStream.h
+//  sunflow
+//
+//  Created by Okami Satoshi on 12/04/27.
+//  Copyright (c) 2012 Okami Satoshi. All rights reserved.
+//
 
 #include "BufferStream.h"
 #include <iostream.h>

@@ -1,31 +1,30 @@
 //
-//  SphereObjectBlock.h
+//  SphereBlock.h
 //  emptyExample
 //
 //  Created by Okami Satoshi on 12/05/31.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef _SphereObjectBlock_h
-#define _SphereObjectBlock_h
+#ifndef _SphereBlock_h
+#define _SphereBlock_h
 
 #include "MeshBlock.h"
 #include "BufferStream.h"
 
 namespace sf {
 	
-	class SphereObjectBlock : public MeshBlock {
+	class SphereBlock : public MeshBlock {
 		
 	public:
 		
-		SphereObjectBlock() {
+		SphereBlock(const string _name) {
 			type = "sphere";
-			name = "sphere";
+			name = _name;
 			m.makeScaleMatrix(1, 1, 1);
 		}
 		
 		void flush(BufferStream& stream) {
-			
 			stream.push("object");
 			stream.write("shader", shader);
 			stream.write("transform col");

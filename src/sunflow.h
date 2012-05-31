@@ -9,10 +9,9 @@
 #ifndef _sunflow_h
 #define _sunflow_h
 
+#include "Constants.h"
 #include "BaseApp.h"
 #include "RunApp.h"
-#include "Constants.h"
-#include "Trackball.h"
 
 namespace sf {
 	

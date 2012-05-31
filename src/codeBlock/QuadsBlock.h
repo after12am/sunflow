@@ -1,31 +1,30 @@
 //
-//  QuadsObjectBlock.h
+//  QuadsBlock.h
 //  emptyExample
 //
 //  Created by Okami Satoshi on 12/05/31.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef _QuadsObjectBlock_h
-#define _QuadsObjectBlock_h
+#ifndef _QuadsBlock_h
+#define _QuadsBlock_h
 
 #include "MeshBlock.h"
 #include "BufferStream.h"
 
 namespace sf {
 	
-	class QuadsObjectBlock : public MeshBlock {
+	class QuadsBlock : public MeshBlock {
 		
 	public:
 		
-		QuadsObjectBlock() {
-			name = "\"Quads\"";
+		QuadsBlock(const string _name) {
 			type = "generic-mesh";
+			name = _name;
 			m.makeScaleMatrix(1, 1, 1);
 		}
 		
 		void flush(BufferStream& stream) {
-			
 			stream.push("object");
 			stream.write("shader", shader);
 			stream.write("transform col");
@@ -35,7 +34,7 @@ namespace sf {
 			}
 			
 			stream.write("type", type);
-			stream.write("name", "\"Quads\"");
+			stream.write("name", name);
 			stream.write("points", int(vertices.size()));
 			
 			for (int i = 0; i < vertices.size(); i++) {

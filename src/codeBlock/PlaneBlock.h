@@ -1,45 +1,43 @@
 //
-//  BoxInstanceBlock.h
+//  PlaneObjectBlock.h
 //  emptyExample
 //
 //  Created by Okami Satoshi on 12/05/31.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef _BoxInstanceBlock_h
-#define _BoxInstanceBlock_h
+#ifndef _PlaneObjectBlock_h
+#define _PlaneObjectBlock_h
 
 #include "MeshBlock.h"
 #include "BufferStream.h"
 
 namespace sf {
 	
-	class BoxInstanceBlock : public MeshBlock {
-		
-	protected:
-		
-		string geometry;
+	class PlaneBlock : public MeshBlock {
 		
 	public:
 		
-		BoxInstanceBlock() {
-			type = "instance";
-			name = "\"Box\"";
-			geometry = "\"Box\"";
-			m.makeScaleMatrix(1, 1, 1);
+		vec3f p;
+		vec3f n;
+		
+		PlaneBlock(const string _name) {
+			type = "plane";
+			name = _name;
 		}
 		
 		void flush(BufferStream& stream) {
-			stream.push("instance");
-			stream.write("name", name);
-			stream.write("geometry", geometry);
+			stream.push("object");
+			stream.write("shader", shader);
 			stream.write("transform col");
 			
 			for (int i = 0; i < 16; i = i + 4) {
 				stream.write("", m.getPtr()[i], m.getPtr()[i + 1], m.getPtr()[i + 2], m.getPtr()[i + 3]);
 			}
 			
-			stream.write("shader", shader);
+			stream.write("type", type);
+			stream.write("p", p.x, p.y, p.z);
+			stream.write("n", n.x, n.y, n.z);
 			stream.pop();
 		}
 	};

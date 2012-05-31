@@ -25,7 +25,8 @@ void testApp::draw(){
 	sf::popMatrix();
 	
 	// quads test
-	sf::setColor(0, .8f, .8f);
+	sf::pushMatrix();
+	sf::setColor(.8f, 0, .8f);
 	sf::scale(4, 4, 4);
 	sf::begin();
 	sf::vertex(-.5f, -.5f, 0);
@@ -33,6 +34,7 @@ void testApp::draw(){
 	sf::vertex( .5f,  .5f, 0);
 	sf::vertex(-.5f,  .5f, 0);
 	sf::end();
+	sf::popMatrix();
 	
 	sf::setColor(0, .8f, .8f);
 	sf::floor();

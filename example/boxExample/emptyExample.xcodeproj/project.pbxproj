@@ -60,11 +60,11 @@
 		74BFB1AE157705460022192B /* SunskyLightBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunskyLightBlock.h; sourceTree = "<group>"; };
 		74BFB1AF1577075D0022192B /* DiffuseShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiffuseShader.h; sourceTree = "<group>"; };
 		74BFB1B0157707860022192B /* ShinyShaderBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShinyShaderBlock.h; sourceTree = "<group>"; };
-		74BFB1B1157709690022192B /* BoxObjectBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxObjectBlock.h; sourceTree = "<group>"; };
-		74BFB1B215770A730022192B /* BoxInstanceBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxInstanceBlock.h; sourceTree = "<group>"; };
-		74BFB1B315770B600022192B /* PlaneObjectBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaneObjectBlock.h; sourceTree = "<group>"; };
-		74BFB1B415770C1D0022192B /* SphereObjectBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphereObjectBlock.h; sourceTree = "<group>"; };
-		74BFB1B515770C860022192B /* QuadsObjectBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadsObjectBlock.h; sourceTree = "<group>"; };
+		74BFB1B1157709690022192B /* BoxGenericMeshBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxGenericMeshBlock.h; sourceTree = "<group>"; };
+		74BFB1B215770A730022192B /* InstanceBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstanceBlock.h; sourceTree = "<group>"; };
+		74BFB1B315770B600022192B /* PlaneBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaneBlock.h; sourceTree = "<group>"; };
+		74BFB1B415770C1D0022192B /* SphereBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphereBlock.h; sourceTree = "<group>"; };
+		74BFB1B515770C860022192B /* QuadsBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadsBlock.h; sourceTree = "<group>"; };
 		74C9F6281574666000AAAE7A /* Trackball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trackball.cpp; sourceTree = "<group>"; };
 		74C9F6291574666000AAAE7A /* Trackball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trackball.h; sourceTree = "<group>"; };
 		74C9F6331574669200AAAE7A /* ofMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofMath.cpp; sourceTree = "<group>"; };
@@ -237,11 +237,11 @@
 				74BFB1AE157705460022192B /* SunskyLightBlock.h */,
 				74BFB1AF1577075D0022192B /* DiffuseShader.h */,
 				74BFB1B0157707860022192B /* ShinyShaderBlock.h */,
-				74BFB1B1157709690022192B /* BoxObjectBlock.h */,
-				74BFB1B215770A730022192B /* BoxInstanceBlock.h */,
-				74BFB1B315770B600022192B /* PlaneObjectBlock.h */,
-				74BFB1B415770C1D0022192B /* SphereObjectBlock.h */,
-				74BFB1B515770C860022192B /* QuadsObjectBlock.h */,
+				74BFB1B1157709690022192B /* BoxGenericMeshBlock.h */,
+				74BFB1B215770A730022192B /* InstanceBlock.h */,
+				74BFB1B315770B600022192B /* PlaneBlock.h */,
+				74BFB1B415770C1D0022192B /* SphereBlock.h */,
+				74BFB1B515770C860022192B /* QuadsBlock.h */,
 			);
 			path = codeBlock;
 			sourceTree = "<group>";

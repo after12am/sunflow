@@ -30,7 +30,8 @@ void testApp::draw(){
 		
 		for (int j = -n; j <= n; j++) {
 			
-			switch (abs((i + j) % 4)) {
+			int rest = abs((i + j) % 4);
+			switch (rest) {
 				case 0:
 					sf::setColor(.8f, .8f, 0);
 					break;

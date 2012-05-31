@@ -129,14 +129,14 @@ void SFRenderer::flush() {
 		sc.shaders[i]->flush(bufferStream);
 	}
 	
-	BoxObjectBlock boxScheme;
-	boxScheme.flush(bufferStream);
+	BoxGenericMeshBlock box;
+	box.flush(bufferStream);
 	
 	for (int i = 0; i < sc.objects.size(); i++) {
 		sc.objects[i]->flush(bufferStream);
 	}
 	
-#ifdef DEBUG
+#ifdef false
 	bufferStream.dump();
 #endif
 	
@@ -248,8 +248,7 @@ void SFRenderer::sphere() {
 	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
 	glPopMatrix();
 	
-	SphereObjectBlock* sphere = new SphereObjectBlock();
-	sphere->name = bid();
+	SphereBlock* sphere = new SphereBlock(bid());
 	sphere->m = m;
 	
 	if (currShader) {
@@ -264,8 +263,7 @@ void SFRenderer::box() {
 	matrix4x4 m;
 	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
 	
-	BoxInstanceBlock* box = new BoxInstanceBlock();
-	box->name = bid();
+	InstanceBlock* box = new InstanceBlock(bid(), "\"Box\"");
 	box->m = m;
 	
 	if (currShader) {
@@ -280,8 +278,7 @@ void SFRenderer::quads(vector<vec3f> vertices) {
 	matrix4x4 m;
 	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
 	
-	QuadsObjectBlock* quads = new QuadsObjectBlock();
-	quads->name = bid();
+	QuadsBlock* quads = new QuadsBlock(bid());
 	quads->vertices = vertices;
 	quads->m = m;
 	
@@ -298,8 +295,7 @@ void SFRenderer::floor() {
 	glGetFloatv(GL_MODELVIEW_MATRIX, m.getPtr());
 	
 	// name value have to be unique if using instance
-	PlaneObjectBlock* plane = new PlaneObjectBlock();
-	plane->name = bid();
+	PlaneBlock* plane = new PlaneBlock(bid());
 	plane->m = m;
 	plane->p = vec3f(0, 0, 0);
 	plane->n = vec3f(0, 1, 0);

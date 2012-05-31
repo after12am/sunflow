@@ -1,24 +1,24 @@
 //
-//  BoxObjectBlock.h
+//  BoxGenericMeshBlock.h
 //  emptyExample
 //
 //  Created by Okami Satoshi on 12/05/31.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef _BoxObjectBlock_h
-#define _BoxObjectBlock_h
+#ifndef _BoxGenericMeshBlock_h
+#define _BoxGenericMeshBlock_h
 
 #include "MeshBlock.h"
 #include "BufferStream.h"
 
 namespace sf {
 	
-	class BoxObjectBlock : public MeshBlock {
+	class BoxGenericMeshBlock : public MeshBlock {
 		
 	public:
 		
-		BoxObjectBlock() {
+		BoxGenericMeshBlock() {
 			type = "generic-mesh";
 			name = "\"Box\"";
 		}

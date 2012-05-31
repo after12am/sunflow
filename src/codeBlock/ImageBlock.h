@@ -11,13 +11,10 @@
 
 #include "BaseBlock.h"
 #include "BufferStream.h"
-#include "Constants.h"
 
 namespace sf {
 	
 	class ImageBlock : public BaseBlock {
-		
-		// http://sfwiki.geneome.net/index.php5?title=Image
 		
 	private:
 		
@@ -80,15 +77,13 @@ namespace sf {
 		string filter;
 		
 		
-		ImageBlock() {
-			type = "image";
-			name = "image";
-			aaMin = 0;
-			aaMax = 0;
-			samples = 4;
+		ImageBlock(const int _aaMin = 0, const int _aaMax = 0, const int _samples = 4, const string _filter = "triangle") {
+			aaMin = _aaMin;
+			aaMax = _aaMax;
+			samples = _samples;
 			// strongly recommend not to change another parameter.
 			contrast = 0.1f;
-			filter = "triangle";
+			filter = _filter;
 			jitter = false;
 		}
 		
@@ -104,4 +99,5 @@ namespace sf {
 		}
 	};
 }
+
 #endif

@@ -10,22 +10,18 @@
 #define _BaseBlock_h
 
 #include "BufferStream.h"
-#include <iostream.h>
-
-using namespace std;
 
 namespace sf {
 	
 	class BaseBlock {
 		
-	public:
+	protected:
 		
 		string type;
-		string name;
 		
-		virtual ~BaseBlock() {
-			
-		}
+	public:
+		
+		string name;
 		
 		virtual void flush(BufferStream& stream) = 0;
 	};

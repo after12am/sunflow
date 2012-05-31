@@ -10,15 +10,24 @@
 #define _SFRenderer_h
 
 #include "sunflow.h"
-#include "GLRenderer.h"
 #include "BufferStream.h"
 #include "BaseBlock.h"
 #include "ImageBlock.h"
 #include "CameraBlock.h"
-#include "GIBlock.h"
+#include "PinholeCameraBlock.h"
+#include "GlobalIlluminationBlock.h"
+#include "AmbientOcclusionBlock.h"
 #include "LightBlock.h"
+#include "PointLightBlock.h"
 #include "MeshBlock.h"
+#include "BoxObjectBlock.h"
+#include "BoxInstanceBlock.h"
+#include "SphereObjectBlock.h"
+#include "PlaneObjectBlock.h"
+#include "QuadsObjectBlock.h"
 #include "ShaderBlock.h"
+#include "DiffuseShader.h"
+#include "ShinyShaderBlock.h"
 
 namespace sf {
 	
@@ -26,11 +35,11 @@ namespace sf {
 		
 	protected:
 		
-		struct Blocks {
+		struct CodeBlock {
 			ImageBlock* image;
 			CameraBlock* camera;
-			GIBlock* gi;
-			vector<Light*> lights;
+			GlobalIlluminationBlock* gi;
+			vector<LightBlock*> lights;
 			vector<ShaderBlock*> shaders;
 			vector<MeshBlock*> objects;
 		} sc;

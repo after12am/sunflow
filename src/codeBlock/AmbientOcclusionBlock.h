@@ -1,33 +1,20 @@
 //
-//  GIBlock.h
+//  AmbientOcclusionBlock.h
 //  emptyExample
 //
-//  Created by Okami Satoshi on 12/04/29.
+//  Created by Okami Satoshi on 12/05/31.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef _GIBlock_h
-#define _GIBlock_h
+#ifndef _AmbientOcclusion_h
+#define _AmbientOcclusion_h
 
-#include "BaseBlock.h"
-#include "sunflow.h"
-
-namespace sf {
-	
-	class GIBlock : public BaseBlock {
-		
-	public:
-		
-		GIBlock() {
-			type = "gi";
-			name = "gi";
-		}
-	};
-}
+#include "GlobalIlluminationBlock.h"
+#include "BufferStream.h"
 
 namespace sf {
 	
-	class AmbientOcclusionBlock : public GIBlock {
+	class AmbientOcclusionBlock : public GlobalIlluminationBlock {
 		
 	public:
 		
@@ -37,7 +24,8 @@ namespace sf {
 		float maxdist;
 		string colorSpace;
 		
-		AmbientOcclusionBlock(Color _bright, Color _dark, int _samples, float _maxdist, string _colorSpace) {
+		AmbientOcclusionBlock(const Color _bright, const Color _dark, const int _samples, const float _maxdist, const string _colorSpace) {
+			type = "ambocc";
 			bright = _bright;
 			dark = _dark;
 			samples = _samples;
@@ -46,9 +34,8 @@ namespace sf {
 		}
 		
 		void flush(BufferStream& stream) {
-			
 			stream.push("gi");
-			stream.write("type", "ambocc");
+			stream.write("type", type);
 			stream.push("bright");
 			stream.write("\"" + colorSpace + "\"", bright.r, bright.g, bright.b);
 			stream.pop();

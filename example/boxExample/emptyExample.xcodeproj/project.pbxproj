@@ -49,11 +49,22 @@
 		748E0901154D3C0800D2BB5B /* BaseApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseApp.h; sourceTree = "<group>"; };
 		748E0921154D4A8300D2BB5B /* BaseBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseBlock.h; sourceTree = "<group>"; };
 		748E0923154D4A8300D2BB5B /* CameraBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraBlock.h; sourceTree = "<group>"; };
-		748E0925154D4A8300D2BB5B /* GIBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GIBlock.h; sourceTree = "<group>"; };
+		748E0925154D4A8300D2BB5B /* GlobalIlluminationBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalIlluminationBlock.h; sourceTree = "<group>"; };
 		748E0927154D4A8300D2BB5B /* ImageBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBlock.h; sourceTree = "<group>"; };
 		748E0929154D4A8300D2BB5B /* LightBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightBlock.h; sourceTree = "<group>"; };
 		748E092B154D4A8300D2BB5B /* MeshBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshBlock.h; sourceTree = "<group>"; };
 		748E092D154D4A8300D2BB5B /* ShaderBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderBlock.h; sourceTree = "<group>"; };
+		74BFB1AA1577003B0022192B /* PinholeCameraBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinholeCameraBlock.h; sourceTree = "<group>"; };
+		74BFB1AC157702900022192B /* AmbientOcclusionBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmbientOcclusionBlock.h; sourceTree = "<group>"; };
+		74BFB1AD157705100022192B /* PointLightBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLightBlock.h; sourceTree = "<group>"; };
+		74BFB1AE157705460022192B /* SunskyLightBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunskyLightBlock.h; sourceTree = "<group>"; };
+		74BFB1AF1577075D0022192B /* DiffuseShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiffuseShader.h; sourceTree = "<group>"; };
+		74BFB1B0157707860022192B /* ShinyShaderBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShinyShaderBlock.h; sourceTree = "<group>"; };
+		74BFB1B1157709690022192B /* BoxObjectBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxObjectBlock.h; sourceTree = "<group>"; };
+		74BFB1B215770A730022192B /* BoxInstanceBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxInstanceBlock.h; sourceTree = "<group>"; };
+		74BFB1B315770B600022192B /* PlaneObjectBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaneObjectBlock.h; sourceTree = "<group>"; };
+		74BFB1B415770C1D0022192B /* SphereObjectBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphereObjectBlock.h; sourceTree = "<group>"; };
+		74BFB1B515770C860022192B /* QuadsObjectBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadsObjectBlock.h; sourceTree = "<group>"; };
 		74C9F6281574666000AAAE7A /* Trackball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trackball.cpp; sourceTree = "<group>"; };
 		74C9F6291574666000AAAE7A /* Trackball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trackball.h; sourceTree = "<group>"; };
 		74C9F6331574669200AAAE7A /* ofMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofMath.cpp; sourceTree = "<group>"; };
@@ -215,11 +226,22 @@
 			children = (
 				748E0921154D4A8300D2BB5B /* BaseBlock.h */,
 				748E0923154D4A8300D2BB5B /* CameraBlock.h */,
-				748E0925154D4A8300D2BB5B /* GIBlock.h */,
+				748E0925154D4A8300D2BB5B /* GlobalIlluminationBlock.h */,
 				748E0927154D4A8300D2BB5B /* ImageBlock.h */,
 				748E0929154D4A8300D2BB5B /* LightBlock.h */,
 				748E092B154D4A8300D2BB5B /* MeshBlock.h */,
 				748E092D154D4A8300D2BB5B /* ShaderBlock.h */,
+				74BFB1AA1577003B0022192B /* PinholeCameraBlock.h */,
+				74BFB1AC157702900022192B /* AmbientOcclusionBlock.h */,
+				74BFB1AD157705100022192B /* PointLightBlock.h */,
+				74BFB1AE157705460022192B /* SunskyLightBlock.h */,
+				74BFB1AF1577075D0022192B /* DiffuseShader.h */,
+				74BFB1B0157707860022192B /* ShinyShaderBlock.h */,
+				74BFB1B1157709690022192B /* BoxObjectBlock.h */,
+				74BFB1B215770A730022192B /* BoxInstanceBlock.h */,
+				74BFB1B315770B600022192B /* PlaneObjectBlock.h */,
+				74BFB1B415770C1D0022192B /* SphereObjectBlock.h */,
+				74BFB1B515770C860022192B /* QuadsObjectBlock.h */,
 			);
 			path = codeBlock;
 			sourceTree = "<group>";

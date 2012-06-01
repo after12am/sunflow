@@ -15,9 +15,11 @@ namespace sf {
 	
 	class ShaderBlock : public BaseBlock {
 		
-	public:
+	protected:
 		
 		string colorSpace;
+		
+	public:
 		
 		virtual Color getColor() = 0;
 	};

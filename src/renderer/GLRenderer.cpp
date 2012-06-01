@@ -31,13 +31,17 @@ void GLRenderer::setup() {
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, color);
 	
-	// setup call list for performance
+	// sphere call list
 	glNewList(1, GL_COMPILE);
 	glutSolidSphere(1, 40, 40);
 	glEndList();
+	
+	// box call list
 	glNewList(2, GL_COMPILE);
 	glutSolidCube(1);
 	glEndList();
+	
+	// quads call list
 	glNewList(3, GL_COMPILE);
 	glBegin(GL_QUADS);
 	glVertex3f(-.5f, 0, -.5f);
@@ -112,7 +116,6 @@ void GLRenderer::sphere(float sizeX, float sizeY, float sizeZ) {
 }
 
 void GLRenderer::box(float sizeX, float sizeY, float sizeZ) {
-	// switch to glCallList
 	glPushMatrix();
 	glScalef(sizeX, sizeY, sizeZ);
 	glCallList(2);

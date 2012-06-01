@@ -23,7 +23,6 @@ namespace sf {
 	public:
 		
 		InstanceBlock(const string _name, const string _geometry) {
-			type = "instance";
 			name = _name;
 			geometry = _geometry;
 			m.makeScaleMatrix(1, 1, 1);

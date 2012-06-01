@@ -57,13 +57,10 @@ namespace sf {
 		} option;
 		
 		SFRenderer() {
-			
 			currShader = 0;
-			
 			sc.image = new ImageBlock();
 			sc.camera = 0;
 			sc.gi = 0;
-			
 			option.nogui = false;
 			option.ipr = true;
 			option.output = getBinDir() + "/image.jpeg ";
@@ -75,7 +72,6 @@ namespace sf {
 		
 		// call sunflow command
 		void call(Option option);
-		
 		void clear();
 		void flush();
 		void render();

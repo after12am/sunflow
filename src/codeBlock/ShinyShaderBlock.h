@@ -9,6 +9,7 @@
 #ifndef _ShinyShaderBlock_h
 #define _ShinyShaderBlock_h
 
+#include "sunflow.h"
 #include "DiffuseShader.h"
 #include "BufferStream.h"
 
@@ -23,7 +24,7 @@ namespace sf {
 		float refl;
 		
 		
-		ShinyShaderBlock(const string _name, const Color _diffuse, const float _refl, const string _colorSpace = "") : DiffuseShader(_name, _diffuse, _colorSpace) {
+		ShinyShaderBlock(const string _name, const Color _diffuse, const float _refl, const string _colorSpace = "internal") : DiffuseShader(_name, _diffuse, _colorSpace) {
 			type = "shiny";
 			refl = _refl;
 		}
@@ -33,12 +34,15 @@ namespace sf {
 			stream.write("name", name);
 			stream.write("type", type);
 			
-			if (colorSpace != "") {
+			if (colorSpace == COLORSPACE_SRGB_INTERNAL) {
+				stream.write("diff", diffuse.r, diffuse.g, diffuse.b);
+			} else {
+				// sRGB nonlinear
+				// sRGB linear
+				// XYZ
 				stream.push("diff");
 				stream.write("\"" + colorSpace + "\"", diffuse.r, diffuse.g, diffuse.b);
 				stream.pop();
-			} else {
-				stream.write("diff", diffuse.r, diffuse.g, diffuse.b);
 			}
 			
 			stream.write("refl", refl);

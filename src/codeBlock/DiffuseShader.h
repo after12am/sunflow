@@ -9,6 +9,7 @@
 #ifndef _DiffuseShader_h
 #define _DiffuseShader_h
 
+#include "sunflow.h"
 #include "ShaderBlock.h"
 #include "BufferStream.h"
 
@@ -22,7 +23,7 @@ namespace sf {
 		
 	public:
 		
-		DiffuseShader(const string _name, const Color _diffuse, const string _colorSpace = "") {
+		DiffuseShader(const string _name, const Color _diffuse, const string _colorSpace = "internal") {
 			type = "diffuse";
 			name = _name;
 			diffuse = _diffuse;
@@ -34,12 +35,15 @@ namespace sf {
 			stream.write("name", name);
 			stream.write("type", type);
 			
-			if (colorSpace != "") {
+			if (colorSpace == COLORSPACE_SRGB_INTERNAL) {
+				stream.write("diff", diffuse.r, diffuse.g, diffuse.b);
+			} else {
+				// sRGB nonlinear
+				// sRGB linear
+				// XYZ
 				stream.push("diff");
 				stream.write("\"" + colorSpace + "\"", diffuse.r, diffuse.g, diffuse.b);
 				stream.pop();
-			} else {
-				stream.write("diff", diffuse.r, diffuse.g, diffuse.b);
 			}
 			
 			stream.pop();

@@ -252,7 +252,7 @@ void SFRenderer::sphere() {
 	sphere->m = m;
 	
 	if (currShader) {
-		sphere->shader = currShader->name;
+		sphere->shader = currShader->getName();
 	}
 	
 	sc.objects.push_back(sphere);
@@ -267,7 +267,7 @@ void SFRenderer::box() {
 	box->m = m;
 	
 	if (currShader) {
-		box->shader = currShader->name;
+		box->shader = currShader->getName();
 	}
 	
 	sc.objects.push_back(box);
@@ -283,7 +283,7 @@ void SFRenderer::quads(vector<vec3f> vertices) {
 	quads->m = m;
 	
 	if (currShader) {
-		quads->shader = currShader->name;
+		quads->shader = currShader->getName();
 	}
 	
 	sc.objects.push_back(quads);
@@ -301,7 +301,7 @@ void SFRenderer::floor() {
 	plane->n = vec3f(0, 1, 0);
 	
 	if (currShader) {
-		plane->shader = currShader->name;
+		plane->shader = currShader->getName();
 	}
 	
 	sc.objects.push_back(plane);

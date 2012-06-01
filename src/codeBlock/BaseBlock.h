@@ -18,11 +18,11 @@ namespace sf {
 	protected:
 		
 		string type;
+		string name;
 		
 	public:
 		
-		string name;
-		
+		string getName() { return name; }
 		virtual void flush(BufferStream& stream) = 0;
 	};
 }

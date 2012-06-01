@@ -46,6 +46,7 @@
 		7456B792154AC0CB0059EC27 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7456B793154AC0CB0059EC27 /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
 		7456B794154AC0CB0059EC27 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
+		7463F41B1578DFEB00AD8EAB /* RenderOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderOption.h; sourceTree = "<group>"; };
 		748E0901154D3C0800D2BB5B /* BaseApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseApp.h; sourceTree = "<group>"; };
 		74BFB1DF15771FC60022192B /* AmbientOcclusionBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmbientOcclusionBlock.h; sourceTree = "<group>"; };
 		74BFB1E015771FC60022192B /* BaseBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseBlock.h; sourceTree = "<group>"; };
@@ -258,6 +259,7 @@
 		74DFCFA2154B8CA2006EA134 /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				7463F41B1578DFEB00AD8EAB /* RenderOption.h */,
 				74DFCFA3154B8CA2006EA134 /* GLRenderer.h */,
 				74DFCFC2154B9752006EA134 /* GLRenderer.cpp */,
 				74DFCFA4154B8CA2006EA134 /* SFRenderer.h */,

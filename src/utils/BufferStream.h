@@ -11,6 +11,7 @@
 
 #include <sstream>
 #include <iostream.h>
+#include "sunflow.h"
 #include "Constants.h"
 
 namespace sf {
@@ -31,30 +32,18 @@ namespace sf {
 		
 	public:
 		
-		BufferStream()
-		{
+		BufferStream() {
 			depth = 0;
-			
-			char buf[1024];
-			getcwd(buf, sizeof(buf));
-			std::string ss = buf;
-			setPath(ss + '/' + SUNFLOW_SC);
 		}
 		
-		~BufferStream()
-		{
+		~BufferStream() {
 			depth = 0;
-			
 			osstream.clear();
-			
 			//clear();
 		}
 		
 		/// output as sc file and clear osstream buffer
-		void save();
-		
-		// set sc file path
-		void setPath(std::string path);
+		void save(string name);
 		
 		// get sc file path
 		std::string getPath();

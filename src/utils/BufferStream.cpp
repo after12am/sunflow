@@ -19,17 +19,17 @@ float BufferStream::omit(float v)
 
 void BufferStream::clear()
 {
-	if (remove(filePath.c_str()) != 0)
-	{
-		//cout << "[WARNING] sc file not found " << filePath.c_str() << endl;
+	if (remove(filePath.c_str()) != 0) {
 		return;
 	}
 	
 	cout << "[INFO] delete sc file" << endl;
 }
 
-void BufferStream::save()
+void BufferStream::save(string name)
 {
+	filePath = getBinDir() + '/' + name;
+	
 	FILE *fp = fopen(filePath.c_str(), "w");
 	
 	if (fp == NULL)
@@ -41,17 +41,10 @@ void BufferStream::save()
 	fputs(osstream.str().c_str(), fp);
 	fclose(fp);
 	
-	cout << "[INFO] save " << SUNFLOW_SC << endl;
+	cout << "[INFO] save " << name << endl;
 	
 	// clear buffer
 	osstream.str("");
-}
-
-void BufferStream::setPath(std::string path)
-{
-	filePath = path;
-	
-	cout << "[INFO] change sc file path " << path << endl;
 }
 
 std::string BufferStream::getPath()

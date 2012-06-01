@@ -62,12 +62,12 @@ string SFRenderer::bid() {
 	return ss.str();
 }
 
-void SFRenderer::call(Option option) {
+void SFRenderer::call(RenderOption option) {
 	
 	stringstream options;
 	
 	if (option.output != "") {
-		options << " -o " << option.output << " ";
+		options << " -o " << getBinDir() << "/" << option.output << " ";
 	}
 	
 	if (option.nogui) {
@@ -80,15 +80,17 @@ void SFRenderer::call(Option option) {
 	
 	stringstream ss;
 	ss << "cd " << SUNFLOW_FILE_PATH << ";";
-	ss << "./" << SUNFLOW_COMMAND;
+	ss << "./" << SUNFLOW_COMMAND << " ";
 	ss << options.str();
-	ss << option.filePath;
+	ss << option.formatPath;
 	
 	string command = ss.str();
-	if (system(command.c_str())) {
+	if (system(command.c_str()) != -1) {
 		cout << "[INFO] execute " << ss.str() << endl;
 	} else {
 		cout << "[ERROR] sunflow render command error has occured." << endl;
+		cout << ss.str() << endl;
+		exit(0);
 	}
 }
 
@@ -115,7 +117,7 @@ void SFRenderer::clear() {
 	sc.objects.clear();
 }
 
-void SFRenderer::flush() {
+void SFRenderer::flush(string name) {
 	
 	sc.image->flush(bufferStream);
 	sc.camera->flush(bufferStream);
@@ -140,7 +142,7 @@ void SFRenderer::flush() {
 	bufferStream.dump();
 #endif
 	
-	bufferStream.save();
+	bufferStream.save(name);
 }
 
 void SFRenderer::render() {
@@ -149,7 +151,15 @@ void SFRenderer::render() {
 	flush();
 	
 	// set .sc file path
-	option.filePath = bufferStream.getPath();
+	option.formatPath = bufferStream.getPath();
+	
+	// start rendering
+	call(option);
+}
+
+void SFRenderer::render(string format) {
+	
+	option.formatPath = getBinDir() + "/" + format;
 	
 	// start rendering
 	call(option);

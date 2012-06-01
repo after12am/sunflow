@@ -1,14 +1,22 @@
 //
-//  SFRenderOption.h
-//  emptyExample
+//  RenderOption.h
+//  sunflow
 //
 //  Created by Okami Satoshi on 12/06/01.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Okami Satoshi. All rights reserved.
 //
 
-#ifndef emptyExample_SFRenderOption_h
-#define emptyExample_SFRenderOption_h
+#ifndef _RenderOption_h
+#define _RenderOption_h
 
-
+namespace sf {
+	
+	struct RenderOption {
+		bool nogui;
+		bool ipr;
+		string output;
+		string formatPath;
+	};
+}
 
 #endif

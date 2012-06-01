@@ -152,17 +152,32 @@ void sf::floor() {
 	sfRenderer.floor();
 }
 
-void sf::quickRender(const bool nogui, const string output) {
-	render(nogui, true, output);
+sf::RenderOption sf::getRenderOption() {
+	return sfRenderer.option;
 }
 
-void sf::render(const bool nogui, const bool ipr, const string output) {
-	sfRenderer.option.nogui = nogui;
-	sfRenderer.option.ipr = ipr;
-	
-	if (output != "") {
-		sfRenderer.option.output = output;
-	}
-	
+void sf::setRenderOption(sf::RenderOption option) {
+	sfRenderer.option = option;
+}
+
+void sf::quickRender() {
+	sfRenderer.option.ipr = true;
 	sfRenderer.render();
 }
+
+void sf::quickRenderWithFormat(const string formatPath) {
+	sfRenderer.option.ipr = true;
+	sfRenderer.render(formatPath);
+}
+
+void sf::render() {
+	sfRenderer.render();
+}
+
+void sf::renderWithFormat(const string formatPath) {
+	sfRenderer.render(formatPath);
+}
+
+//void sf::flush(string name) {
+//	sfRenderer.flush(name);
+//}

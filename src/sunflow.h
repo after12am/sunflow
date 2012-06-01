@@ -12,6 +12,7 @@
 #include "Constants.h"
 #include "BaseApp.h"
 #include "RunApp.h"
+#include "RenderOption.h"
 
 namespace sf {
 	
@@ -209,8 +210,14 @@ namespace sf {
 	//   if you change ipr to false, you would get better result 
 	//   at the expense of too much time.
 	// -------------------------------------------------------------------------
-	void quickRender(const bool nogui = false, const string output = "");
-	void render(const bool nogui = false, const bool ipr = false, const string output = "");
+	sf::RenderOption getRenderOption();
+	void setRenderOption(sf::RenderOption option);
+	void quickRender();
+	void quickRenderWithFormat(const string formatPath);
+	void render();
+	void renderWithFormat(const string formatPath);
+	
+	//void flush(string name);
 }
 
 #endif

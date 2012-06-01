@@ -10,6 +10,7 @@
 #define _SFRenderer_h
 
 #include "sunflow.h"
+#include "RenderOption.h"
 #include "BufferStream.h"
 #include "BaseBlock.h"
 #include "ImageBlock.h"
@@ -49,12 +50,7 @@ namespace sf {
 		
 	public:
 		
-		struct Option {
-			bool nogui;
-			bool ipr;
-			string output;
-			string filePath;
-		} option;
+		struct RenderOption option;
 		
 		SFRenderer() {
 			currShader = 0;
@@ -62,8 +58,8 @@ namespace sf {
 			sc.camera = 0;
 			sc.gi = 0;
 			option.nogui = false;
-			option.ipr = true;
-			option.output = getBinDir() + "/image.jpeg ";
+			option.ipr = false;
+			option.output = "";
 		}
 		
 		~SFRenderer();
@@ -71,10 +67,11 @@ namespace sf {
 		string bid();
 		
 		// call sunflow command
-		void call(Option option);
+		void call(RenderOption option);
 		void clear();
-		void flush();
+		void flush(string name = SUNFLOW_SC);
 		void render();
+		void render(string format);
 		void setImageResolution(int width, int height);
 		void setFilter(string filter);
 		void smooth(const int min, const int max);

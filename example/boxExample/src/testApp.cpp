@@ -4,6 +4,25 @@
 #include <iostream.h>
 
 //--------------------------------------------------------------
+void testApp::setRnadColor(int n) {
+	
+	switch (n) {
+		case 0:
+			sf::setColor(.8f, .8f, 0);
+			break;
+		case 1:
+			sf::setColor(.8f, 0, .8f);
+			break;
+		case 2:
+			sf::setColor(0, .8f, .8f);
+			break;
+		case 3:
+			sf::setColor(.8f, .8f, .8f);
+			break;
+	}
+}
+
+//--------------------------------------------------------------
 void testApp::setup(){
 	
 }
@@ -17,7 +36,7 @@ void testApp::update(){
 void testApp::draw(){
 	
 	// FILTER_MITCHELL is nice filter
-	sf::setFilter(sf::FILTER_MITCHELL);
+	sf::setFilter(SF_FILTER_MITCHELL);
 	
 	// apply anti-aliasing
 	sf::smooth();
@@ -27,25 +46,8 @@ void testApp::draw(){
 	sf::translate(-12, 0, -12);
 	
 	for (int i = -n; i <= n; i++) {
-		
 		for (int j = -n; j <= n; j++) {
-			
-			int rest = abs((i + j) % 4);
-			switch (rest) {
-				case 0:
-					sf::setColor(.8f, .8f, 0);
-					break;
-				case 1:
-					sf::setColor(.8f, 0, .8f);
-					break;
-				case 2:
-					sf::setColor(0, .8f, .8f);
-					break;
-				case 3:
-					sf::setColor(.8f, .8f, .8f);
-					break;
-			}
-			
+			setRnadColor(abs((i + j) % 4));
 			sf::pushMatrix();
 			sf::translate(i, .5f, j);
 			sf::scale(.7f, .7f, .7f);
@@ -88,5 +90,5 @@ void testApp::windowResized(int w, int h){
 	float aspect = (float)w / h;
 	float z = dist / camera.scale * 2;
 	
-	sf::setupScreenPerspective(sf::vec3f(z, 28, z), sf::vec3f(0, 0, 0), sf::vec3f(0, 1, 0), 30, aspect, camera.near, camera.far);
+	sf::setupScreenPerspective(vec3f(z, 28, z), vec3f(0, 0, 0), vec3f(0, 1, 0), 30, aspect, camera.near, camera.far);
 }

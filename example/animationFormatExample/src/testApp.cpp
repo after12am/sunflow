@@ -3,12 +3,12 @@
 #include <GLUT/GLUT.h>
 #include <iostream.h>
 #include <sstream>
-#include "RenderOption.h"
+#include "SunflowRenderOption.h"
 
 //--------------------------------------------------------------
 void testApp::setup(){
 	no = 0;
-	pos = sf::vec3f(-5, .5f, 0);
+	pos = vec3f(-5, .5f, 0);
 }
 
 //--------------------------------------------------------------
@@ -19,7 +19,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	
-	sf::setFilter(sf::FILTER_MITCHELL);
+	sf::setFilter(SF_FILTER_MITCHELL);
 	sf::smooth();
 	
 	sf::pushMatrix();
@@ -35,7 +35,7 @@ void testApp::draw(){
 	stringstream output;
 	output << "img/" << no << ".png";
 	
-	sf::RenderOption option;
+	SunflowRenderOption option;
 	option.nogui = true;
 	option.ipr = true;
 	option.output = output.str();
@@ -77,5 +77,5 @@ void testApp::windowResized(int w, int h){
 	float aspect = (float)w / h;
 	float z = dist / camera.scale * 2;
 	
-	sf::setupScreenPerspective(sf::vec3f(z, 28, z), sf::vec3f(0, 0, 0), sf::vec3f(0, 1, 0), 30, aspect, camera.near, camera.far);
+	sf::setupScreenPerspective(vec3f(z, 28, z), vec3f(0, 0, 0), vec3f(0, 1, 0), 30, aspect, camera.near, camera.far);
 }

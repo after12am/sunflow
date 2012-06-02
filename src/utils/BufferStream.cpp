@@ -7,10 +7,8 @@
 //
 
 #include "BufferStream.h"
+#include "BaseApp.h"
 #include <iostream.h>
-
-using namespace sf;
-
 
 float BufferStream::omit(float v)
 {

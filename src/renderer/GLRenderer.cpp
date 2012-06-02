@@ -10,16 +10,6 @@
 #include <iostream.h>
 #include <GLUT/GLUT.h>
 
-using namespace sf;
-
-int GLRenderer::getWindowWidth() {
-	return glutGet(GLUT_WINDOW_WIDTH);
-}
-
-int GLRenderer::getWindowHeight() {
-	return glutGet(GLUT_WINDOW_HEIGHT);
-}
-
 void GLRenderer::setup() {
 	
 	// set light setting

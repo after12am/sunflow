@@ -12,35 +12,32 @@
 #include "CameraBlock.h"
 #include "BufferStream.h"
 
-namespace sf {
+class PinholeCameraBlock : public CameraBlock {
 	
-	class PinholeCameraBlock : public CameraBlock {
-		
-	public:
-		
-		float fov;
-		float aspect;
-		
-		PinholeCameraBlock(const vec3f _eye, const vec3f _target, const vec3f _up, const float _fov, const float _aspect) {
-			type = "pinhole";
-			eye = _eye;
-			target = _target;
-			up = _up;
-			fov = _fov;
-			aspect = _aspect;
-		}
-		
-		void flush(BufferStream& stream) {
-			stream.push("camera");
-			stream.write("type", type);
-			stream.write("eye", eye.x, eye.y, eye.z);
-			stream.write("target", target.x, target.y, target.z);
-			stream.write("up", up.x, up.y, up.z);
-			stream.write("fov", fov);
-			stream.write("aspect", aspect);
-			stream.pop();
-		}
-	};
-}
+public:
+	
+	float fov;
+	float aspect;
+	
+	PinholeCameraBlock(const vec3f _eye, const vec3f _target, const vec3f _up, const float _fov, const float _aspect) {
+		type = "pinhole";
+		eye = _eye;
+		target = _target;
+		up = _up;
+		fov = _fov;
+		aspect = _aspect;
+	}
+	
+	void flush(BufferStream& stream) {
+		stream.push("camera");
+		stream.write("type", type);
+		stream.write("eye", eye.x, eye.y, eye.z);
+		stream.write("target", target.x, target.y, target.z);
+		stream.write("up", up.x, up.y, up.z);
+		stream.write("fov", fov);
+		stream.write("aspect", aspect);
+		stream.pop();
+	}
+};
 
 #endif

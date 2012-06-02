@@ -11,11 +11,8 @@
 
 #include "BaseBlock.h"
 
-namespace sf {
+class GlobalIlluminationBlock : public BaseBlock {
 	
-	class GlobalIlluminationBlock : public BaseBlock {
-		
-	};
-}
+};
 
 #endif

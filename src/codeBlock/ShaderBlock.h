@@ -11,18 +11,15 @@
 
 #include "BaseBlock.h"
 
-namespace sf {
+class ShaderBlock : public BaseBlock {
 	
-	class ShaderBlock : public BaseBlock {
-		
-	protected:
-		
-		string colorSpace;
-		
-	public:
-		
-		virtual Color getColor() = 0;
-	};
-}
+protected:
+	
+	string colorSpace;
+	
+public:
+	
+	virtual Color getColor() = 0;
+};
 
 #endif

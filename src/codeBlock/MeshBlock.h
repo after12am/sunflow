@@ -12,24 +12,20 @@
 #include "BaseBlock.h"
 #include <vector.h>
 
-
-namespace sf {
+class MeshBlock : public BaseBlock {
 	
-	class MeshBlock : public BaseBlock {
-		
-	public:
-		
-		vector<vec3f> vertices;
-		vector<vec3f> indices;
-		vector<vec3f> norms;
-		string shader;
-		matrix4x4 m;
-		
-		MeshBlock() {
-			shader = "none";
-			m.makeScaleMatrix(0.001, 0.001, 0.001);
-		}
-	};
-}
+public:
+	
+	vector<vec3f> vertices;
+	vector<vec3f> indices;
+	vector<vec3f> norms;
+	string shader;
+	matrix4x4 m;
+	
+	MeshBlock() {
+		shader = "none";
+		m.makeScaleMatrix(0.001, 0.001, 0.001);
+	}
+};
 
 #endif

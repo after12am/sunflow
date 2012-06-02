@@ -11,14 +11,11 @@
 
 #include "BaseBlock.h"
 
-namespace sf {
+class LightBlock : public BaseBlock {
 	
-	class LightBlock : public BaseBlock {
-		
-	public:
-		
-		string colorSpace;
-	};
-}
+public:
+	
+	string colorSpace;
+};
 
 #endif

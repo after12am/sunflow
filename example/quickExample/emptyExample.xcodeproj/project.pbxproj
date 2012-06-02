@@ -19,11 +19,13 @@
 		74C9F6471574669200AAAE7A /* ofQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74C9F6391574669200AAAE7A /* ofQuaternion.cpp */; };
 		74C9F6481574669200AAAE7A /* ofVec2f.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74C9F63B1574669200AAAE7A /* ofVec2f.cpp */; };
 		74C9F6491574669200AAAE7A /* ofVec4f.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74C9F63E1574669200AAAE7A /* ofVec4f.cpp */; };
+		74DB366B157A9C27005DE315 /* SunflowRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74DB3668157A9C27005DE315 /* SunflowRenderer.cpp */; };
+		74DB3671157A9C30005DE315 /* AppRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74DB366C157A9C30005DE315 /* AppRenderer.cpp */; };
+		74DB3672157A9C30005DE315 /* AppWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74DB366E157A9C30005DE315 /* AppWindow.cpp */; };
+		74DB3673157A9C30005DE315 /* BaseApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74DB3670157A9C30005DE315 /* BaseApp.cpp */; };
 		74DFCFAF154B8CA2006EA134 /* RunApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74DFCF8D154B8CA2006EA134 /* RunApp.cpp */; };
-		74DFCFB6154B8CA2006EA134 /* sunflow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74DFCFA5154B8CA2006EA134 /* sunflow.cpp */; };
 		74DFCFB7154B8CA2006EA134 /* BufferStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74DFCFA8154B8CA2006EA134 /* BufferStream.cpp */; };
 		74DFCFC3154B9753006EA134 /* GLRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74DFCFC2154B9752006EA134 /* GLRenderer.cpp */; };
-		74DFCFC5154B97A9006EA134 /* SFRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74DFCFC4154B97A9006EA134 /* SFRenderer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,7 +48,6 @@
 		7456B792154AC0CB0059EC27 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7456B793154AC0CB0059EC27 /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
 		7456B794154AC0CB0059EC27 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
-		7463F4251578E01400AD8EAB /* RenderOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderOption.h; sourceTree = "<group>"; };
 		748E0901154D3C0800D2BB5B /* BaseApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseApp.h; sourceTree = "<group>"; };
 		74BFB1C015771AEF0022192B /* AmbientOcclusionBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmbientOcclusionBlock.h; sourceTree = "<group>"; };
 		74BFB1C115771AEF0022192B /* BaseBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseBlock.h; sourceTree = "<group>"; };
@@ -84,17 +85,22 @@
 		74C9F6401574669200AAAE7A /* ofVectorMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofVectorMath.h; sourceTree = "<group>"; };
 		74C9F6421574669200AAAE7A /* ofConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofConstants.h; sourceTree = "<group>"; };
 		74C9F6431574669200AAAE7A /* ofNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofNoise.h; sourceTree = "<group>"; };
+		74DB3668157A9C27005DE315 /* SunflowRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SunflowRenderer.cpp; sourceTree = "<group>"; };
+		74DB3669157A9C27005DE315 /* SunflowRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunflowRenderer.h; sourceTree = "<group>"; };
+		74DB366A157A9C27005DE315 /* SunflowRenderOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunflowRenderOption.h; sourceTree = "<group>"; };
+		74DB366C157A9C30005DE315 /* AppRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppRenderer.cpp; sourceTree = "<group>"; };
+		74DB366D157A9C30005DE315 /* AppRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppRenderer.h; sourceTree = "<group>"; };
+		74DB366E157A9C30005DE315 /* AppWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppWindow.cpp; sourceTree = "<group>"; };
+		74DB366F157A9C30005DE315 /* AppWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppWindow.h; sourceTree = "<group>"; };
+		74DB3670157A9C30005DE315 /* BaseApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseApp.cpp; sourceTree = "<group>"; };
 		74DFCF8D154B8CA2006EA134 /* RunApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunApp.cpp; sourceTree = "<group>"; };
 		74DFCF8E154B8CA2006EA134 /* RunApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunApp.h; sourceTree = "<group>"; };
 		74DFCFA3154B8CA2006EA134 /* GLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLRenderer.h; sourceTree = "<group>"; };
-		74DFCFA4154B8CA2006EA134 /* SFRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFRenderer.h; sourceTree = "<group>"; };
-		74DFCFA5154B8CA2006EA134 /* sunflow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sunflow.cpp; sourceTree = "<group>"; };
 		74DFCFA6154B8CA2006EA134 /* sunflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sunflow.h; sourceTree = "<group>"; };
 		74DFCFA8154B8CA2006EA134 /* BufferStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferStream.cpp; sourceTree = "<group>"; };
 		74DFCFA9154B8CA2006EA134 /* BufferStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferStream.h; sourceTree = "<group>"; };
 		74DFCFBC154B9168006EA134 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		74DFCFC2154B9752006EA134 /* GLRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLRenderer.cpp; sourceTree = "<group>"; };
-		74DFCFC4154B97A9006EA134 /* SFRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SFRenderer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +210,6 @@
 				74DFCF8F154B8CA2006EA134 /* codeBlock */,
 				74DFCF90154B8CA2006EA134 /* contrib */,
 				74DFCFA2154B8CA2006EA134 /* renderer */,
-				74DFCFA5154B8CA2006EA134 /* sunflow.cpp */,
 				74DFCFA6154B8CA2006EA134 /* sunflow.h */,
 				74DFCFA7154B8CA2006EA134 /* utils */,
 			);
@@ -215,6 +220,11 @@
 		74DFCF8C154B8CA2006EA134 /* app */ = {
 			isa = PBXGroup;
 			children = (
+				74DB366C157A9C30005DE315 /* AppRenderer.cpp */,
+				74DB366D157A9C30005DE315 /* AppRenderer.h */,
+				74DB366E157A9C30005DE315 /* AppWindow.cpp */,
+				74DB366F157A9C30005DE315 /* AppWindow.h */,
+				74DB3670157A9C30005DE315 /* BaseApp.cpp */,
 				74DFCF8D154B8CA2006EA134 /* RunApp.cpp */,
 				74DFCF8E154B8CA2006EA134 /* RunApp.h */,
 				748E0901154D3C0800D2BB5B /* BaseApp.h */,
@@ -259,11 +269,11 @@
 		74DFCFA2154B8CA2006EA134 /* renderer */ = {
 			isa = PBXGroup;
 			children = (
-				7463F4251578E01400AD8EAB /* RenderOption.h */,
+				74DB3668157A9C27005DE315 /* SunflowRenderer.cpp */,
+				74DB3669157A9C27005DE315 /* SunflowRenderer.h */,
+				74DB366A157A9C27005DE315 /* SunflowRenderOption.h */,
 				74DFCFA3154B8CA2006EA134 /* GLRenderer.h */,
 				74DFCFC2154B9752006EA134 /* GLRenderer.cpp */,
-				74DFCFA4154B8CA2006EA134 /* SFRenderer.h */,
-				74DFCFC4154B97A9006EA134 /* SFRenderer.cpp */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -331,10 +341,8 @@
 				7456B795154AC0CB0059EC27 /* main.cpp in Sources */,
 				7456B796154AC0CB0059EC27 /* testApp.cpp in Sources */,
 				74DFCFAF154B8CA2006EA134 /* RunApp.cpp in Sources */,
-				74DFCFB6154B8CA2006EA134 /* sunflow.cpp in Sources */,
 				74DFCFB7154B8CA2006EA134 /* BufferStream.cpp in Sources */,
 				74DFCFC3154B9753006EA134 /* GLRenderer.cpp in Sources */,
-				74DFCFC5154B97A9006EA134 /* SFRenderer.cpp in Sources */,
 				74C9F6301574666000AAAE7A /* Trackball.cpp in Sources */,
 				74C9F6441574669200AAAE7A /* ofMath.cpp in Sources */,
 				74C9F6451574669200AAAE7A /* ofMatrix3x3.cpp in Sources */,
@@ -342,6 +350,10 @@
 				74C9F6471574669200AAAE7A /* ofQuaternion.cpp in Sources */,
 				74C9F6481574669200AAAE7A /* ofVec2f.cpp in Sources */,
 				74C9F6491574669200AAAE7A /* ofVec4f.cpp in Sources */,
+				74DB366B157A9C27005DE315 /* SunflowRenderer.cpp in Sources */,
+				74DB3671157A9C30005DE315 /* AppRenderer.cpp in Sources */,
+				74DB3672157A9C30005DE315 /* AppWindow.cpp in Sources */,
+				74DB3673157A9C30005DE315 /* BaseApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

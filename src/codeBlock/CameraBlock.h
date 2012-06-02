@@ -11,16 +11,13 @@
 
 #include "BaseBlock.h"
 
-namespace sf {
+class CameraBlock : public BaseBlock {
 	
-	class CameraBlock : public BaseBlock {
-		
-	public:
-		
-		vec3f eye;
-		vec3f target;
-		vec3f up;
-	};
-}
+public:
+	
+	vec3f eye;
+	vec3f target;
+	vec3f up;
+};
 
 #endif

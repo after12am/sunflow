@@ -11,20 +11,17 @@
 
 #include "BufferStream.h"
 
-namespace sf {
+class BaseBlock {
 	
-	class BaseBlock {
-		
-	protected:
-		
-		string type;
-		string name;
-		
-	public:
-		
-		string getName() { return name; }
-		virtual void flush(BufferStream& stream) = 0;
-	};
-}
+protected:
+	
+	string type;
+	string name;
+	
+public:
+	
+	string getName() { return name; }
+	virtual void flush(BufferStream& stream) = 0;
+};
 
 #endif

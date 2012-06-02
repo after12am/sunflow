@@ -3,12 +3,12 @@
 //  emptyExample
 //
 //  Created by Okami Satoshi on 12/04/27.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Okami Satoshi. All rights reserved.
 //
 
 #include <iostream.h>
 #include <GLUT/GLUT.h>
-#include "sunflow.h"
+#include "RunApp.h"
 #include "testApp.h"
 
 
@@ -20,6 +20,6 @@ int main (int argc, char * argv[])
 	glutInitWindowSize(1024, 768);
 	glutCreateWindow("emptyExample");
 	
-	sf::RunApp(new testApp());
+	RunApp(new testApp());
 	return 0;
 }

@@ -4,7 +4,7 @@
 
 #include "sunflow.h"
 
-class testApp : public sf::BaseApp {
+class testApp : public BaseApp {
 	
 public:
 	void setup();
@@ -17,7 +17,7 @@ public:
 	void windowResized(int w, int h);
 	
 	int no;
-	sf::vec3f pos;
+	vec3f pos;
 };
 
 #endif

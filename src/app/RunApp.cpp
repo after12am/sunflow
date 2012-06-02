@@ -12,12 +12,21 @@
 #include <cmath>
 #include <time.h>
 #include "GLRenderer.h"
-#include "SFRenderer.h"
-
-using namespace sf;
+#include "SunflowRenderer.h"
 
 BaseApp* RunApp::app;
 Trackball RunApp::tb;
+
+//--------------------------------------------------------------
+RunApp::RunApp(BaseApp* _app) {
+	RunApp::app = _app;
+	setup();
+}
+
+//--------------------------------------------------------------
+RunApp::~RunApp() {
+	delete RunApp::app;
+}
 
 //--------------------------------------------------------------
 
@@ -38,8 +47,13 @@ void RunApp::setup() {
 	// setup openGL 
 	GLRenderer::setup();
 	
+	RunApp::app->camera.fovy = 30.0;
+	RunApp::app->camera.scale = 100;
+	RunApp::app->camera.near = 1;
+	RunApp::app->camera.far = 1000;
+	
 	// setup global illumination
-	setAmbocc(Color(1.f, 1.f, 1.f), Color(0.f, 0.f, 0.f), 32, 3.0, COLORSPACE_SRGB_LINEAR);
+	sf::setAmbocc(Color(1.f, 1.f, 1.f), Color(0.f, 0.f, 0.f), 32, 3.0, SF_COLORSPACE_SRGB_LINEAR);
 	
 	// process user setup function
 	RunApp::app->setup();
@@ -57,7 +71,7 @@ void RunApp::update(){
 void RunApp::draw(){
 	
 	// cleanup sunflow renderer buffer and etc...
-	_clear();
+	sf::_clear();
 	
 	// call for processing testApp::update()
 	update();
@@ -95,7 +109,7 @@ void RunApp::mousePressed(int button, int state, int x, int y){
 void RunApp::windowResized(int w, int h){
 	
 	// resize image resolution of sunflow renderer
-	setSize(w, h);
+	sf::setResolution(w, h);
 	
 	BaseApp::Camera camera = RunApp::app->camera;
 	
@@ -110,7 +124,7 @@ void RunApp::windowResized(int w, int h){
 	
 	// As we use perspective camera as default, 
 	// mesh size is constant even if window is resized.
-	setupScreenPerspective(vec3f(0, 4, z), vec3f(0, 0, 0), vec3f(0, 1, 0), 30, aspect, camera.near, camera.far);
+	sf::setupScreenPerspective(vec3f(0, 4, z), vec3f(0, 0, 0), vec3f(0, 1, 0), 30, aspect, camera.near, camera.far);
 	
 	RunApp::app->windowResized(w, h);
 }
@@ -119,5 +133,5 @@ void RunApp::windowResized(int w, int h){
 void RunApp::timer(int value) {
 	update();
 	glutPostRedisplay();
-	glutTimerFunc(1000 / getFrameRate(), timer, 0);
+	glutTimerFunc(1000 / RunApp::app->getFrameRate(), timer, 0);
 }

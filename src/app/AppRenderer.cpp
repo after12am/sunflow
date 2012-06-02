@@ -1,56 +1,26 @@
 //
-//  sunflow.cpp
+//  AppRenderer.cpp
 //  sunflow
 //
-//  Created by Okami Satoshi on 12/04/28.
+//  Created by Okami Satoshi on 12/06/03.
 //  Copyright (c) 2012 Okami Satoshi. All rights reserved.
 //
 
-#include "sunflow.h"
-#include <iostream.h>
+#include "AppRenderer.h"
 #include "GLRenderer.h"
-#include "SFRenderer.h"
-#include <sstream>
+#include "SunflowRenderer.h"
+#include <iostream.h>
 
-sf::GLRenderer glRenderer;
-sf::SFRenderer sfRenderer;
-vector<sf::vec3f> vertices;
-
-int _frameRate = FRAME_RATE;
-
-int sf::getWindowWidth() {
-	return glRenderer.getWindowWidth();
-}
-
-int sf::getWindowHeight() {
-	return glRenderer.getWindowHeight();
-}
-
-void sf::setWindowSize(int width, int height) {
-	IMPL
-}
-
-void sf::setFrameRate(int i) {
-	_frameRate = i;
-}
-
-int sf::getFrameRate() {
-	return _frameRate;
-}
-
-string sf::getBinDir(int bufSize) {
-	char buf[bufSize];
-	getcwd(buf, sizeof(buf));
-	string ss = buf;
-	return ss.c_str();
-}
+GLRenderer glRenderer;
+SunflowRenderer sfRenderer;
+vector<vec3f> vertices;
 
 void sf::_clear() {
 	glRenderer.clear();
 	sfRenderer.clear();
 }
 
-void sf::setSize(int width, int height) {
+void sf::setResolution(int width, int height) {
 	sfRenderer.setImageResolution(width, height);
 }
 
@@ -70,9 +40,9 @@ void sf::smooth(const int min, const int max) {
 	sfRenderer.smooth(min, max);
 }
 
-void sf::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fov, const float aspect, const float near, const float far) {
-	glRenderer.setupScreenPerspective(eye, target, up, fov, aspect, near, far);
-	sfRenderer.setupScreenPerspective(eye, target, up, fov, aspect);
+void sf::setupScreenPerspective(const vec3f eye, const vec3f target, const vec3f up, const float fovy, const float aspect, const float near, const float far) {
+	glRenderer.setupScreenPerspective(eye, target, up, fovy, aspect, near, far);
+	sfRenderer.setupScreenPerspective(eye, target, up, fovy, aspect);
 }
 
 void sf::setAmboccBright(const Color bright) {
@@ -119,7 +89,7 @@ void sf::begin() {
 
 void sf::vertex(float x, float y, float z) {
 	glRenderer.vertex(x, y, z);
-	vertices.push_back(sf::vec3f(x, y, z));
+	vertices.push_back(vec3f(x, y, z));
 }
 
 void sf::end() {
@@ -127,13 +97,11 @@ void sf::end() {
 	sfRenderer.quads(vertices);
 }
 
-void sf::sphere(float size)
-{
+void sf::sphere(float size) {
 	sphere(size, size, size);
 }
 
-void sf::sphere(float sizeX, float sizeY, float sizeZ)
-{
+void sf::sphere(float sizeX, float sizeY, float sizeZ) {
 	glRenderer.sphere(sizeX, sizeY, sizeZ);
 	sfRenderer.sphere();
 }
@@ -152,22 +120,17 @@ void sf::floor() {
 	sfRenderer.floor();
 }
 
-sf::RenderOption sf::getRenderOption() {
-	return sfRenderer.option;
+SunflowRenderOption* sf::getRenderOption() {
+	return &sfRenderer.option;
 }
 
-void sf::setRenderOption(sf::RenderOption option) {
+void sf::setRenderOption(SunflowRenderOption option) {
 	sfRenderer.option = option;
 }
 
 void sf::quickRender() {
 	sfRenderer.option.ipr = true;
 	sfRenderer.render();
-}
-
-void sf::quickRenderWithFormat(const string formatPath) {
-	sfRenderer.option.ipr = true;
-	sfRenderer.render(formatPath);
 }
 
 void sf::render() {
@@ -178,6 +141,6 @@ void sf::renderWithFormat(const string formatPath) {
 	sfRenderer.render(formatPath);
 }
 
-//void sf::flush(string name) {
-//	sfRenderer.flush(name);
-//}
+void sf::flush(string name) {
+	sfRenderer.flush(name);
+}

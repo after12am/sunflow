@@ -4,9 +4,10 @@
 
 #include "sunflow.h"
 
-class testApp : public sf::BaseApp {
+class testApp : public BaseApp {
 	
 public:
+	void setRnadColor(int n);
 	void setup();
 	void update();
 	void draw();

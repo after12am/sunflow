@@ -120,14 +120,6 @@ void sf::floor() {
 	sfRenderer.floor();
 }
 
-SunflowRenderOption* sf::getRenderOption() {
-	return &sfRenderer.option;
-}
-
-void sf::setRenderOption(SunflowRenderOption option) {
-	sfRenderer.option = option;
-}
-
 void sf::quickRender() {
 	sfRenderer.option.ipr = true;
 	sfRenderer.render();
@@ -143,4 +135,16 @@ void sf::renderWithFormat(const string formatPath) {
 
 void sf::flush(string name) {
 	sfRenderer.flush(name);
+}
+
+void sf::nogui(bool nogui) {
+	sfRenderer.option.nogui = nogui;
+}
+
+void sf::ipr(bool ipr) {
+	sfRenderer.option.ipr = ipr;
+}
+
+void sf::output(string output) {
+	sfRenderer.option.output = output;
 }

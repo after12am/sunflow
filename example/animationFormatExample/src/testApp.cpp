@@ -3,7 +3,6 @@
 #include <GLUT/GLUT.h>
 #include <iostream.h>
 #include <sstream>
-#include "SunflowRenderOption.h"
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -35,12 +34,9 @@ void testApp::draw(){
 	stringstream output;
 	output << "img/" << no << ".png";
 	
-	SunflowRenderOption option;
-	option.nogui = true;
-	option.ipr = true;
-	option.output = output.str();
-	sf::setRenderOption(option);
-	
+	sf::nogui(true);
+	sf::ipr(true);
+	sf::output(output.str());
 	sf::render();
 	
 	no++;

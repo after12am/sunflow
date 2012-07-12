@@ -53,7 +53,6 @@
 		7456B792154AC0CB0059EC27 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7456B793154AC0CB0059EC27 /* testApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testApp.cpp; sourceTree = "<group>"; };
 		7456B794154AC0CB0059EC27 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testApp.h; sourceTree = "<group>"; };
-		7463F4151578DFD300AD8EAB /* SunflowRenderOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunflowRenderOption.h; sourceTree = "<group>"; };
 		748E0901154D3C0800D2BB5B /* BaseApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseApp.h; sourceTree = "<group>"; };
 		748E0921154D4A8300D2BB5B /* BaseBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseBlock.h; sourceTree = "<group>"; };
 		748E0923154D4A8300D2BB5B /* CameraBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraBlock.h; sourceTree = "<group>"; };
@@ -269,7 +268,6 @@
 		74DFCFA2154B8CA2006EA134 /* renderer */ = {
 			isa = PBXGroup;
 			children = (
-				7463F4151578DFD300AD8EAB /* SunflowRenderOption.h */,
 				74DFCFA3154B8CA2006EA134 /* GLRenderer.h */,
 				74DFCFC2154B9752006EA134 /* GLRenderer.cpp */,
 				74DFCFA4154B8CA2006EA134 /* SunflowRenderer.h */,

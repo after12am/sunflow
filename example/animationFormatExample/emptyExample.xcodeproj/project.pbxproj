@@ -43,7 +43,6 @@
 /* Begin PBXFileReference section */
 		7433BFAB157A9B0E00BF89EA /* SunflowRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SunflowRenderer.cpp; sourceTree = "<group>"; };
 		7433BFAC157A9B0E00BF89EA /* SunflowRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunflowRenderer.h; sourceTree = "<group>"; };
-		7433BFAD157A9B0E00BF89EA /* SunflowRenderOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunflowRenderOption.h; sourceTree = "<group>"; };
 		7433BFAF157A9B1600BF89EA /* AppRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppRenderer.cpp; sourceTree = "<group>"; };
 		7433BFB0157A9B1600BF89EA /* AppRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppRenderer.h; sourceTree = "<group>"; };
 		7433BFB1157A9B1600BF89EA /* AppWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppWindow.cpp; sourceTree = "<group>"; };
@@ -271,7 +270,6 @@
 			children = (
 				7433BFAB157A9B0E00BF89EA /* SunflowRenderer.cpp */,
 				7433BFAC157A9B0E00BF89EA /* SunflowRenderer.h */,
-				7433BFAD157A9B0E00BF89EA /* SunflowRenderOption.h */,
 				74DFCFA3154B8CA2006EA134 /* GLRenderer.h */,
 				74DFCFC2154B9752006EA134 /* GLRenderer.cpp */,
 			);

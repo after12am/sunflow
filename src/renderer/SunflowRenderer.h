@@ -9,7 +9,6 @@
 #ifndef _SunflowRenderer_h
 #define _SunflowRenderer_h
 
-#include "SunflowRenderOption.h"
 #include "BufferStream.h"
 #include "BaseBlock.h"
 #include "ImageBlock.h"
@@ -42,16 +41,30 @@ protected:
 		vector<MeshBlock*> objects;
 	};
 	
+	struct RenderOption {
+		bool nogui;
+		bool ipr;
+		string output;
+	};
+	
 	CodeBlock sc;
 	BufferStream bufferStream;
 	ShaderBlock* currShader;
 	
+	string formatPath;
+	
 public:
 	
-	struct SunflowRenderOption option;
+	RenderOption option;
 	
 	SunflowRenderer() {
-		currShader = 0;
+        // render option
+		option.nogui = false;
+		option.ipr = false;
+		option.output = "";
+		
+		formatPath = "";
+        currShader = 0;
 		sc.image = new ImageBlock();
 		sc.camera = 0;
 		sc.gi = 0;
@@ -62,7 +75,7 @@ public:
 	string bid();
 	
 	// call sunflow command
-	void call(SunflowRenderOption option);
+	void call();
 	void clear();
 	void flush(string name);
 	void render();

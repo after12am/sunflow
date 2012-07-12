@@ -9,7 +9,6 @@
 #ifndef _AppRenderer_h
 #define _AppRenderer_h
 
-#include "SunflowRenderOption.h"
 #include "Constants.h"
 #include <iostream.h>
 
@@ -127,12 +126,21 @@ namespace sf {
 	//   if you change ipr to false, you would get better result 
 	//   at the expense of too much time.
 	// -------------------------------------------------------------------------
-	SunflowRenderOption* getRenderOption();
-	void setRenderOption(SunflowRenderOption option);
 	void quickRender();
 	void render();
 	void renderWithFormat(const string formatPath);
 	void flush(string name);
+	
+	// -------------------------------------------------------------------------
+	//   RENDER OPTION GUIDE
+	// -------------------------------------------------------------------------
+	// - nogui
+	// - ipr if you change ipr to false, you would get better result 
+	// - output output image path
+	// -------------------------------------------------------------------------
+	void nogui(bool nogui = false);
+	void ipr(bool ipr = false);
+	void output(string output);
 }
 
 #endif

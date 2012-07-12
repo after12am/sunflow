@@ -60,7 +60,7 @@ string SunflowRenderer::bid() {
 	return ss.str();
 }
 
-void SunflowRenderer::call(SunflowRenderOption option) {
+void SunflowRenderer::call() {
 	
 	stringstream options;
 	
@@ -78,7 +78,7 @@ void SunflowRenderer::call(SunflowRenderOption option) {
 	
 	stringstream ss;
 	ss << "cd " << SF_LIB_PATH << ";";
-	ss << "./sunflow " << options.str() << option.formatPath;
+	ss << "./sunflow " << options.str() << formatPath;
 	
 	string command = ss.str();
 	if (system(command.c_str()) != -1) {
@@ -148,18 +148,18 @@ void SunflowRenderer::render() {
 	flush(name);
 	
 	// set sc path
-	option.formatPath = bufferStream.getPath();
+	formatPath = bufferStream.getPath();
 	
 	// start rendering
-	call(option);
+	call();
 }
 
 void SunflowRenderer::render(string format) {
 	
-	option.formatPath = getBinDir() + "/" + format;
+	formatPath = getBinDir() + "/" + format;
 	
 	// start rendering
-	call(option);
+	call();
 }
 
 void SunflowRenderer::setImageResolution(int width, int height) {
